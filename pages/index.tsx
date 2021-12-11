@@ -32,9 +32,9 @@ export default function Home() {
             alignItems={'center'}
             justify={'center'}
             w={['90vw', '90vw', '70vw']}>
-            <Flex m={'2'} align={'center'} w={'full'} bg="green.300">A</Flex>
-            <Flex m={'2'} align={'center'} w={'full'} bg="green.500">A</Flex>
-            <Flex m={'2'} align={'center'} w={'full'} bg="green.700">A</Flex>
+            <Flex m={'2'} align={'center'} w={'full'} bg="green.300">Perfil</Flex>
+            <Flex m={'2'} align={'center'} w={'full'} bg="green.500">Financeiro</Flex>
+            <Flex m={'2'} align={'center'} w={'full'} bg="green.700">Programações</Flex>
           </Flex>
         </Center>
       </Container>
