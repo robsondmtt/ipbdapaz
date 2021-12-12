@@ -32,3 +32,19 @@ exports.addAdm = functions.https.onCall((data,context) => {
         return err
     })
 })
+
+exports.criarAdministrador = functions.https.onCall((data, context) => {
+
+    if(context.auth.token.admin !== true){
+        return {error: 'solo admin puede modificar'}
+    }
+
+    return auth.getUserByEmail(data.email)
+        .then(user => {
+            return auth.setCustomUserClaims(user.uid, {admin: true})
+        })
+        .then(() => {
+            return {message: 'se creó con éxito el administrador'}
+        })
+        .catch(error => error)
+})

@@ -20,6 +20,7 @@ function gerenciarCookie(logado) {
 export function AuthProvider(props) {
     const [user, setUser] = useState(null)
     const [carregando, setCarregando] = useState(true)
+    const [permissao, setPermissao] = useState(0)
 
     async function configurarSessao(usuarioFirebase) {
         if (usuarioFirebase?.email) {
@@ -44,6 +45,15 @@ export function AuthProvider(props) {
 
                 const dados = result.user;
                 await configurarSessao(dados)
+
+                if (result.user) {
+                    const db = getFirestore()
+                    const query = doc(db, "users", result.user.uid);
+                    const data = await getDoc(query);
+    
+                    setPermissao(data.data().permissao)
+                }
+
                 route.push('/')
                 setCarregando(false)
             }).catch((error) => {
@@ -73,7 +83,7 @@ export function AuthProvider(props) {
 
     
     useEffect(() => {
-        // const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        // const unsubscribe = onIdTokenChanged(auth, async (user) => {
             
         //     if (user) {
         //             const db = getFirestore()
@@ -83,8 +93,7 @@ export function AuthProvider(props) {
         //             setPermissao(data.data().permissao)
         //         }
         // })
-
-    
+       
 
         if (Cookies.get('admin-template-cod3r-auth')) {
             const auth = getAuth();
@@ -101,7 +110,7 @@ export function AuthProvider(props) {
     return (
         <AuthContext.Provider value={{
             user,
-            // permissao,
+            permissao,
             carregando,
             login,
             // recuperarSenha,
