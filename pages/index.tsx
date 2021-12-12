@@ -22,42 +22,42 @@ export default function Home() {
       <Container maxW='container.xl'>
 
         <SimpleGrid mt={8} columns={[1, 2, 3]} spacing='40px'>
-          <Link href={"/teste"} passHref>
+          <Link href={"/perfil"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Perfil</Center>
             </Box>
           </Link>
-          <Link href={"/teste1"} passHref>
+          <Link href={"/financeiro"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Financeiro</Center>
             </Box>
           </Link>
-          <Link href={"/teste2"} passHref>
+          <Link href={"/programacoes"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Programações</Center>
             </Box>
           </Link>
-          <Link href={"/teste3"} passHref>
+          <Link href={"/conselho"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Conselho</Center>
             </Box>
           </Link>
-          <Link href={"/teste4"} passHref>
+          <Link href={"/sermoes"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Sermões</Center>
             </Box>
           </Link>
-          <Link href={"/teste5"} passHref>
+          <Link href={"/boletim"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Boletim</Center>
             </Box>
           </Link>
-          <Link href={"/teste6"} passHref>
+          <Link href={"/pedidos-oracao"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Pedidos de Oração</Center>
             </Box>
           </Link>
-          <Link href={"/teste7"} passHref>
+          <Link href={"/pedidos-visita"} passHref>
             <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Pedidos de Visita</Center>
             </Box>
