@@ -1,7 +1,8 @@
 import { Button } from '@chakra-ui/button'
-import { Box, Center, Container, Flex, Heading } from '@chakra-ui/react'
+import { Box, Center, Container, Flex, Heading, SimpleGrid } from '@chakra-ui/react'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import LayoutCenter from '../components/Layout/LayoutCenter'
 import Navbar from '../components/Nav/Navbar'
 import useAuth from '../hooks/useAuth'
@@ -19,24 +20,49 @@ export default function Home() {
       <Navbar />
       {/* <LayoutCenter> */}
       <Container maxW='container.xl'>
-        <Center>
-          <Heading>
-            Bem vindo!
-          </Heading>
-        </Center>
-        <Center>
-          <Flex
-            maxW={'1000px'}
-            direction={['column', 'column', 'row', 'row']}
-            justifyContent={'space-around'}
-            alignItems={'center'}
-            justify={'center'}
-            w={['90vw', '90vw', '70vw']}>
-            <Flex m={'2'} align={'center'} w={'full'} bg="green.300">Perfil</Flex>
-            <Flex m={'2'} align={'center'} w={'full'} bg="green.500">Financeiro</Flex>
-            <Flex m={'2'} align={'center'} w={'full'} bg="green.700">Programações</Flex>
-          </Flex>
-        </Center>
+
+        <SimpleGrid mt={8} columns={[1, 2, 3]} spacing='40px'>
+          <Link href={"/teste"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Perfil</Center>
+            </Box>
+          </Link>
+          <Link href={"/teste1"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Financeiro</Center>
+            </Box>
+          </Link>
+          <Link href={"/teste2"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Programações</Center>
+            </Box>
+          </Link>
+          <Link href={"/teste3"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Conselho</Center>
+            </Box>
+          </Link>
+          <Link href={"/teste4"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Sermões</Center>
+            </Box>
+          </Link>
+          <Link href={"/teste5"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Boletim</Center>
+            </Box>
+          </Link>
+          <Link href={"/teste6"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Pedidos de Oração</Center>
+            </Box>
+          </Link>
+          <Link href={"/teste7"} passHref>
+            <Box bg='green.200' borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Pedidos de Visita</Center>
+            </Box>
+          </Link>
+        </SimpleGrid>
       </Container>
       {/* </LayoutCenter> */}
     </>
