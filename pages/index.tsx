@@ -11,9 +11,9 @@ import useAuth from '../hooks/useAuth'
 
 export default function Home() {
 
-  const {user,permissao} = useAuth()
+  // const {user,permissao} = useAuth()
 
-  console.log(user,permissao);
+  // console.log(user);
   
   return (
 

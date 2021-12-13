@@ -20,6 +20,11 @@ exports.createUser = functions.auth.user().onCreate( user => {
 })
 
 exports.addAdm = functions.https.onCall((data,context) => {
+
+    if(context.auth.token.admin !== true){
+        return {error: 'solo admin puede modificar'}
+    }
+
     return admin.auth().getUserByEmail(data.email).then( user => {
         return admin.auth().setCustomUserClaims(user.uid, {
             admin: true
@@ -33,7 +38,7 @@ exports.addAdm = functions.https.onCall((data,context) => {
     })
 })
 
-exports.criarAdministrador = functions.https.onCall((data, context) => {
+exports.deleteAdm = functions.https.onCall((data, context) => {
 
     if(context.auth.token.admin !== true){
         return {error: 'solo admin puede modificar'}
@@ -41,10 +46,12 @@ exports.criarAdministrador = functions.https.onCall((data, context) => {
 
     return auth.getUserByEmail(data.email)
         .then(user => {
-            return auth.setCustomUserClaims(user.uid, {admin: true})
+            return auth.setCustomUserClaims(user.uid, {admin: false})
         })
         .then(() => {
-            return {message: 'se creó con éxito el administrador'}
+            return {message: `Success!!! ${data.email} tornou-se convidado`}
         })
         .catch(error => error)
 })
+
+

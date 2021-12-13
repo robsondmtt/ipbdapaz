@@ -1,5 +1,5 @@
 import app from '../lib/firebase'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from '@firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from '@firebase/auth';
 import { createContext, useState, useEffect } from 'react';
 
 import Cookies from 'js-cookie'
@@ -21,6 +21,7 @@ export function AuthProvider(props) {
     const [user, setUser] = useState(null)
     const [carregando, setCarregando] = useState(true)
     const [permissao, setPermissao] = useState(0)
+    const [nivelAcesso, setNivelAcesso] = useState('convidado')
 
     async function configurarSessao(usuarioFirebase) {
         if (usuarioFirebase?.email) {
@@ -46,7 +47,7 @@ export function AuthProvider(props) {
                 const dados = result.user;
                 await configurarSessao(dados)
 
-                if (result.user) {
+                if (result) {
                     const db = getFirestore()
                     const query = doc(db, "users", result.user.uid);
                     const data = await getDoc(query);
@@ -83,16 +84,19 @@ export function AuthProvider(props) {
 
     
     useEffect(() => {
-        // const unsubscribe = onIdTokenChanged(auth, async (user) => {
-            
-        //     if (user) {
-        //             const db = getFirestore()
-        //             const query = doc(db, "users", user.uid);
-        //             const data = await getDoc(query);
-    
-        //             setPermissao(data.data().permissao)
-        //         }
-        // })
+        const auth = getAuth();
+        onAuthStateChanged(auth, (userChange) => {
+            if (userChange) {
+                userChange.getIdTokenResult().then(idTokenResult => {
+                    console.log(idTokenResult.claims)
+                    if (!!idTokenResult.claims.admin) {
+                        console.log('perfil administrador')
+                        console.log(idTokenResult.claims.admin)
+                        setNivelAcesso({ setNivelAcesso: 'admin'})
+                    }
+                })
+            } 
+          });
        
 
         if (Cookies.get('admin-template-cod3r-auth')) {
@@ -113,10 +117,11 @@ export function AuthProvider(props) {
             permissao,
             carregando,
             login,
+            logout,
+            nivelAcesso,
             // recuperarSenha,
             // cadastrar,
             // // loginGoogle,
-            logout
         }}>
             {props.children}
         </AuthContext.Provider>
