@@ -30,12 +30,14 @@ const Perfil = () => {
         
     }
     const eliminarAdministrador = ({email,uid}) => {
-        const teste = httpsCallable(functions, 'deleteAdm')
-        teste({ email })
-            .then(res => {
+        const teste2 = httpsCallable(functions, 'deleteAdm')
+        teste2({ email })
+            .then(res => {   
                 console.log(res)
             })
             .then(() => {
+                console.log('admin eliminado');
+                
             atualizarNivelAcesso(uid,'convidado')
         })
         
