@@ -22,6 +22,7 @@ exports.createUser = functions.auth.user().onCreate( user => {
 exports.addAdm = functions.https.onCall((data,context) => {
 
     if(context.auth.token.admin !== true){
+        console.log(context.auth.token);
         return {error: 'solo admin puede modificar'}
     }
 
