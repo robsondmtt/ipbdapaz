@@ -18,22 +18,32 @@ const Perfil = () => {
 
 
 
-    const outraFuncao = ({email,uid}) => {
+    const criarAdministrador = ({email,uid}) => {
         const teste = httpsCallable(functions, 'addAdm')
         teste({ email })
             .then(res => {
                 console.log(res)
             })
             .then(() => {
-            atualizarNivelAcesso(uid)
+            atualizarNivelAcesso(uid,'adm')
         })
         
     }
-    async function atualizarNivelAcesso(uid) {
-        console.log(uid);
+    const eliminarAdministrador = ({email,uid}) => {
+        const teste = httpsCallable(functions, 'deleteAdm')
+        teste({ email })
+            .then(res => {
+                console.log(res)
+            })
+            .then(() => {
+            atualizarNivelAcesso(uid,'convidado')
+        })
+        
+    }
+    async function atualizarNivelAcesso(uid,permissao) {
         
         await updateDoc(doc(db, "users", uid), {
-            nivelPermissao: 'admin'
+            nivelPermissao: permissao
         }).then(() => {
             console.log('nivel acesso atualizado');
             
@@ -58,7 +68,8 @@ return (
                         {users.docs.map((doc) => (
                             <ListItem key={doc.id} my="3">
                                 {doc.data().email},{' '}, {doc.data().nivelPermissao}
-                                <Button onClick={() => outraFuncao({email:doc.data().email,uid:doc.id})} >Administrador</Button>
+                                <Button bg="green.300" onClick={() => criarAdministrador({email:doc.data().email,uid:doc.id})} >Criar Administrador</Button>
+                                <Button bg="red.400" onClick={() => eliminarAdministrador({email:doc.data().email,uid:doc.id})} >Eliminar Administrador</Button>
                             </ListItem>
                         ))}
                     </List>

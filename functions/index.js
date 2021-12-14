@@ -15,7 +15,7 @@ exports.createUser = functions.auth.user().onCreate( user => {
         email: user.email,
         photoURL: user.photoURL,
         phoneNumber: user.phoneNumber,
-        permissao: 1,
+        nivelPermissao: 'convidado',
     })))
 })
 
