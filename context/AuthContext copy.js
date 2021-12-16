@@ -2,9 +2,6 @@ import app from '../lib/firebase'
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from '@firebase/auth';
 import { createContext, useState, useEffect } from 'react';
 
-import Loading from '../components/Loading'
-import Login from '../components/Login'
-
 import Cookies from 'js-cookie'
 
 
@@ -25,9 +22,6 @@ export function AuthProvider(props) {
     const [carregando, setCarregando] = useState(true)
     const [permissao, setPermissao] = useState(0)
     const [nivelAcesso, setNivelAcesso] = useState('convidado')
-
-    const [currentUser, setCurrentUser] = useState(null)
-    const [loading, setLoading] = useState(true)
 
     async function configurarSessao(usuarioFirebase) {
         if (usuarioFirebase?.email) {
@@ -57,7 +51,7 @@ export function AuthProvider(props) {
                     const db = getFirestore()
                     const query = doc(db, "users", result.user.uid);
                     const data = await getDoc(query);
-
+    
                     setPermissao(data.data().permissao)
                 }
 
@@ -87,23 +81,8 @@ export function AuthProvider(props) {
         }
     }
 
-    useEffect(() => {
-        const auth = getAuth()
-        return auth.onIdTokenChanged(async (user) => {
-            if (!user) {
-                console.log('no user');
-                setCurrentUser(null);
-                setLoading(false)
-                return;
-            }
-            const token = await user.getIdToken();
-            setCurrentUser(user);
-            setLoading(false)
-            console.log('token', token);
-            console.log('user', user);
-        })
-    }, [])
 
+    
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (userChange) => {
@@ -113,55 +92,41 @@ export function AuthProvider(props) {
                     if (!!idTokenResult.claims.admin) {
                         console.log('perfil administrador')
                         console.log(idTokenResult.claims.admin)
-                        idTokenResult.claims.admin ? setNivelAcesso({ setNivelAcesso: 'admin' }) : setNivelAcesso({ setNivelAcesso: 'convidado' })
-                        setNivelAcesso({ setNivelAcesso: 'admin' })
+                        idTokenResult.claims.admin ? setNivelAcesso({ setNivelAcesso: 'admin'}) : setNivelAcesso({ setNivelAcesso: 'convidado'})
+                        setNivelAcesso({ setNivelAcesso: 'admin'})
                     }
                 })
-            }
-        });
+            } 
+          });
+       
 
+        if (Cookies.get('admin-template-cod3r-auth')) {
+            const auth = getAuth();
+            const cancelar = auth.onIdTokenChanged(configurarSessao)
+            // setUser({
 
-        // if (Cookies.get('admin-template-cod3r-auth')) {
-        //     const auth = getAuth();
-        //     const cancelar = auth.onIdTokenChanged(configurarSessao)
-        //     // setUser({
+            // })
 
-        //     // })
-
-        //     return () => cancelar()
-        // } else {
-        //     setCarregando(false)
-        // }
+            return () => cancelar()
+        } else {
+            setCarregando(false)
+        }
     }, [])
-
-
-    if (loading) {
-        return <Loading type="bubbles" color="yellowgreen" />;
-
-    }
-    if (!currentUser) {
-        return <Login />
-    } else {
-        return (
-            <AuthContext.Provider value={{
-                user,
-                currentUser,
-                loading,
-                permissao,
-                carregando,
-                login,
-                logout,
-                nivelAcesso,
-                // recuperarSenha,
-                // cadastrar,
-                // // loginGoogle,
-            }}>
-                {props.children}
-            </AuthContext.Provider>
-        )
-    }
+    return (
+        <AuthContext.Provider value={{
+            user,
+            permissao,
+            carregando,
+            login,
+            logout,
+            nivelAcesso,
+            // recuperarSenha,
+            // cadastrar,
+            // // loginGoogle,
+        }}>
+            {props.children}
+        </AuthContext.Provider>
+    )
 }
-
-export const useAuth = () => useContext(AuthContext)
 
 export default AuthContext

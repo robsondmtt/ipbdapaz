@@ -2,7 +2,7 @@
 import { initializeApp, getApp, getApps, FirebaseApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage'
 import { getFunctions } from 'firebase/functions'
-import { GoogleAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider, getAuth } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore';
 
 
@@ -27,11 +27,11 @@ if (getApps().length) {
   app = initializeApp(firebaseConfig)
 }
 
-const db = getFirestore(app)
+
+
 const functions = getFunctions(app)
-
-export {db, functions}
-export default app
-
-
+const db = getFirestore();
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+export { db, auth, provider };
 
