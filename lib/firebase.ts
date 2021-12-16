@@ -29,9 +29,9 @@ if (getApps().length) {
 
 export default app
 
-const functions = getFunctions(app)
+const functions = getFunctions()
 const db = getFirestore();
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-export { db, auth, provider };
+export { db, functions, auth, provider };
 

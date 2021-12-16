@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth";
 
 
 const Perfil = () => {
-    const {user} = useAuth()
+
     const [users, loading, error] = useCollection(
         collection(getFirestore(app), 'users'),
         {
@@ -59,7 +59,7 @@ const Perfil = () => {
 return (
     <div>
         <div>
-            {user && user.email}
+            
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {loading && <span>Collection: Loading...</span>}
             {users && (
