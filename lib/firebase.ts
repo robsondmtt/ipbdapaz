@@ -27,7 +27,7 @@ if (getApps().length) {
   app = initializeApp(firebaseConfig)
 }
 
-
+export default app
 
 const functions = getFunctions(app)
 const db = getFirestore();
