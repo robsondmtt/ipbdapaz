@@ -6,7 +6,6 @@ import app from '../../lib/firebase'
 import { FaGoogle } from 'react-icons/fa';
 import { useAuthState } from "react-firebase-hooks/auth";
 import useAuth from "../../hooks/useAuth";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
     const [user] = useAuthState(getAuth(app));

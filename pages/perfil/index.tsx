@@ -4,8 +4,6 @@ import { getFirestore, collection, updateDoc, doc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Button, Center, List, ListIcon, ListItem } from "@chakra-ui/react";
 import { httpsCallable } from "firebase/functions";
-import useAuth from "../../hooks/useAuth";
-
 
 const Perfil = () => {
 
@@ -26,11 +24,13 @@ const Perfil = () => {
                 console.log(res)
             })
             .then(() => {
-            atualizarNivelAcesso(uid,'adm')
+            atualizarNivelAcessoAdm(uid)
         })
         
     }
     const eliminarAdministrador = ({email,uid}) => {
+        console.log('estou aqui');
+        
         const teste2 = httpsCallable(functions, 'deleteAdm')
         teste2({ email })
             .then(res => {   
@@ -39,14 +39,23 @@ const Perfil = () => {
             .then(() => {
                 console.log('admin eliminado');
                 
-            atualizarNivelAcesso(uid,'convidado')
+            atualizarNivelAcessoConvidado(uid)
         })
         
     }
-    async function atualizarNivelAcesso(uid,permissao) {
+    async function atualizarNivelAcessoAdm(uid) {
         
         await updateDoc(doc(db, "users", uid), {
-            nivelPermissao: permissao
+            nivelPermissao: 'adm'
+        }).then(() => {
+            console.log('nivel acesso atualizado');
+            
+        })
+    }
+    async function atualizarNivelAcessoConvidado(uid) {
+        
+        await updateDoc(doc(db, "users", uid), {
+            nivelPermissao: 'convidado'
         }).then(() => {
             console.log('nivel acesso atualizado');
             
@@ -69,7 +78,7 @@ return (
 
 
                         Collection:{' '}
-                        {users.docs.map((doc) => (
+                        {users.docs.map( doc => (
                             <ListItem key={doc.id} my="3">
                                 {doc.data().email},{' '}, {doc.data().nivelPermissao}
                                 <Button bg="green.300" onClick={() => criarAdministrador({email:doc.data().email,uid:doc.id})} >Criar Administrador</Button>
