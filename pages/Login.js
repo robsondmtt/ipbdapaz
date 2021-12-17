@@ -23,15 +23,16 @@ const Login = ({ type, color }) => {
                             IPB da Paz
                         </Heading>
                     </Box>
-                    <Box mt="8">
+                    <Box mt="8" px="8">
+                        <Center>
                             <Text as='cite' color="green.800" align='center'>
-                                Todos pecaram e carecem da glória de Deus.  Rm 3.23
+                                Todos pecaram e carecem da glória de Deus. <br />  Rm 3.23
                             </Text>
-
+                        </Center>
                     </Box>
                     <Box>
-                        <Button colorScheme='green' leftIcon={<FaGoogle />} my="8" 
-                        onClick={loginWithGoogle}>Entrar</Button>
+                        <Button colorScheme='green' leftIcon={<FaGoogle />} my="8"
+                            onClick={loginWithGoogle}>Entrar</Button>
                     </Box>
                 </Flex>
             </Center>
