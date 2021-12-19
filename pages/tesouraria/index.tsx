@@ -20,7 +20,7 @@ const Tesouraria = () => {
                 <Flex w="full" bg='gray.200' py="2" borderRadius="lg">
                     <Box w="100%" mx="4">
                         <Heading size="lg"   
-                            // onClick={() => setMes(moment().subtract(1, 'months').format('MMM'))}
+                            onClick={() => setHoje(moment(hoje).subtract(1, 'months'))}
                             >
                                 <ChevronLeftIcon color="green.800" />
                         </Heading>
@@ -33,7 +33,11 @@ const Tesouraria = () => {
                         </Text>
                     </Box>
                     <Box w="100%" align="right" mx="4">
-                        <Heading size="lg"><ChevronRightIcon color="green.800" /></Heading>
+                        <Heading size="lg"
+                            onClick={() => setHoje(moment(hoje).add(1, 'months'))}    
+                            >
+                            <ChevronRightIcon color="green.800" />
+                        </Heading>
                     </Box>
                 </Flex>
                 <Flex w="full" >
