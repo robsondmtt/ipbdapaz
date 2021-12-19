@@ -22,7 +22,6 @@ exports.createUser = functions.auth.user().onCreate( user => {
 exports.addAdm = functions.https.onCall((data,context) => {
 
     if(context.auth.token.admin !== true){
-        console.log(context.auth.token);
         return {error: 'solo admin puede modificar'}
     }
 
@@ -45,14 +44,19 @@ exports.deleteAdm = functions.https.onCall((data, context) => {
         return {error: 'solo admin puede modificar'}
     }
 
-    return auth.getUserByEmail(data.email)
-        .then(user => {
-            return auth.setCustomUserClaims(user.uid, {admin: false})
+    return admin.auth().getUserByEmail(data.email).then( user => {
+        return admin.auth().setCustomUserClaims(user.uid, {
+            admin: false
         })
-        .then(() => {
-            return {message: `Success!!! ${data.email} tornou-se convidado`}
-        })
-        .catch(error => error)
+    }).then(() => {
+        return {
+            message: `Success!!! ${data.email} tornou-se convidado..`
+        }
+    }).catch(err => {
+        return err
+    })
+
+    
 })
 
 
