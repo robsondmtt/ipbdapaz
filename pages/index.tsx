@@ -3,7 +3,7 @@ import { Box, Center, Container, Flex, Heading, SimpleGrid } from '@chakra-ui/re
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import LayoutCenter from '../components/Layout/LayoutCenter'
+import LayoutCenter from '../components/Layout/LayoutContent'
 import Navbar from '../components/Nav/Navbar'
 import useAuth from '../hooks/useAuth'
 
@@ -61,6 +61,11 @@ export default function Home() {
           <Link href={"/pedidos-visita"} passHref>
             <Box bg='green.600' color="white" borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
               <Center h="100%">Pedidos de Visita</Center>
+            </Box>
+          </Link>
+          <Link href={"/tesouraria"} passHref>
+            <Box bg='green.600' color="white" borderRadius={'lg'} height='80px' style={{cursor: 'pointer'}}>
+              <Center h="100%">Tesouraria</Center>
             </Box>
           </Link>
         </SimpleGrid>

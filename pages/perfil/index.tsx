@@ -1,9 +1,9 @@
-import { useEffect } from "react"
 import app, { functions, db } from '../../lib/firebase'
 import { getFirestore, collection, updateDoc, doc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { Button, Center, List, ListIcon, ListItem } from "@chakra-ui/react";
+import { Button, Center, List, ListItem } from "@chakra-ui/react";
 import { httpsCallable } from "firebase/functions";
+import Loading from "../../components/Loading";
 
 const Perfil = () => {
 
@@ -13,19 +13,20 @@ const Perfil = () => {
             snapshotListenOptions: { includeMetadataChanges: true },
         }
     )
-    console.log(users);
-
-
+    
 
     const criarAdministrador = ({email,uid}) => {
         const teste = httpsCallable(functions, 'addAdm')
+        console.log(email,uid);
+        
         teste({ email })
             .then(res => {
                 console.log(res)
             })
             .then(() => {
             atualizarNivelAcessoAdm(uid)
-        })
+        }
+        ).catch(err => console.log(err.message))
         
     }
     const eliminarAdministrador = ({email,uid}) => {
@@ -70,7 +71,7 @@ return (
         <div>
             
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
-            {loading && <span>Collection: Loading...</span>}
+            {loading && <Loading />}
             {users && (
 
                 <Center>
@@ -78,11 +79,11 @@ return (
 
 
                         Collection:{' '}
-                        {users.docs.map( doc => (
-                            <ListItem key={doc.id} my="3">
-                                {doc.data().email},{' '}, {doc.data().nivelPermissao}
-                                <Button bg="green.300" onClick={() => criarAdministrador({email:doc.data().email,uid:doc.id})} >Criar Administrador</Button>
-                                <Button bg="red.400" onClick={() => eliminarAdministrador({email:doc.data().email,uid:doc.id})} >Eliminar Administrador</Button>
+                        {users.docs.map( item => (
+                            <ListItem key={item.id} my="3">
+                                {item.data().email},{' '}, {item.data().nivelPermissao}
+                                <Button bg="green.300" onClick={() => criarAdministrador({email:item.data().email,uid:item.id})} >Criar Administrador</Button>
+                                <Button bg="red.400" onClick={() => eliminarAdministrador({email:item.data().email,uid:item.id})} >Eliminar Administrador</Button>
                             </ListItem>
                         ))}
                     </List>

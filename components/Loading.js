@@ -1,10 +1,14 @@
 import { Center } from '@chakra-ui/react'
-import LayoutCenter from './Layout/LayoutCenter'
-const Loading = ({ type, color }) => {
+import LayoutCenter from './Layout/LayoutContent'
+import ReactLoading from 'react-loading';
+
+const Loading = () => {
     return (
-       <LayoutCenter>
-           <Center>Carregando...</Center>
-       </LayoutCenter>
+        <LayoutCenter>
+            <Center>
+                <ReactLoading type={'bubbles'} color={'green'} height={200} width={100} />
+            </Center>
+        </LayoutCenter>
 
     )
 }

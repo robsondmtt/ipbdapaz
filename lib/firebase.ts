@@ -19,6 +19,14 @@ const firebaseConfig = {
   measurementId: "${config.measurementId}"
 };
 
+// NEXT_APY_KEY=AIzaSyAFZin3V_Qju9Icinwwh5dkvIiiJEtxzZg
+// NEXT_AUTH_DOMAIN=ipbdapaz-d4e3e.firebaseapp.com
+// NEXT_PROJECT_ID=ipbdapaz-d4e3e
+// NEXT_STORAGE_BUCKET=ipbdapaz-d4e3e.appspot.com
+// NEXT_MESSAGING_SENDER_ID=912011983567
+// NEXT_APP_ID=1:912011983567:web:a5361c7a843cc0f53355ba
+// NEXT_MEASUREMENT_ID=${config.measurementId}
+
 
 
 if (getApps().length) {

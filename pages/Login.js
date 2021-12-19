@@ -4,8 +4,9 @@ import { Button } from "@chakra-ui/button"
 import Image from 'next/image'
 
 import { Box, Center, Flex, Heading, Text } from '@chakra-ui/react';
-import LayoutCenter from '../components/Layout/LayoutCenter';
+import LayoutCenter from '../components/Layout/LayoutContent';
 import { FaGoogle } from 'react-icons/fa';
+
 const Login = ({ type, color }) => {
     const loginWithGoogle = () => {
         signInWithPopup(auth, provider)
@@ -13,7 +14,7 @@ const Login = ({ type, color }) => {
     return (
 
         <LayoutCenter>
-            <Center>
+            <Center>    
                 <Flex direction="column" align="center" maxW="380px">
                     <Box>
                         <Image src={'/ipb.png'} alt='logo ipb' height="100" width="150" />
