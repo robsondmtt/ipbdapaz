@@ -1,9 +1,15 @@
 import { Box } from "@chakra-ui/react"
 
-export const Movimento = () => {
+interface MovimentoProps {
+    dados: any
+}
+export const Movimento = (props: MovimentoProps) => {
+
+    console.log(props.dados);
+    
     return (
         <Box p={2}>
-            movimento
+            {props.dados.descricao}
         </Box>
     )
 }

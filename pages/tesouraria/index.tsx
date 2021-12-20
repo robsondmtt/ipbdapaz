@@ -18,9 +18,7 @@ const Tesouraria = () => {
             <LayoutContent>
                 
                 <Navegacao setData={setHoje} data={hoje} />
-
                 <Painel data={hoje} />
-
                 <Movimentacao data={hoje} />
 
             </LayoutContent>
