@@ -2,6 +2,7 @@ import { Box, Button, Flex, FormControl, FormLabel, Input, Select } from "@chakr
 import { getAuth } from "firebase/auth"
 import { addDoc, collection } from "firebase/firestore"
 import moment from "moment"
+import 'moment/locale/pt-br'
 import { useState } from "react"
 import { db } from "../../lib/firebase"
 
@@ -21,8 +22,9 @@ const FormMovimento = (props: FormMovimentoProps) => {
 
 
     async function salvarLancamento() {
+        let data1 = `${data} 12:00`
         const dados = {
-            data: new Date(data),
+            data: new Date(data1),
             valor: Number(valor.replace(',','.')),
             mes: Number(moment(data).format('MM')),
             ano: Number(moment(data).format('YYYY')),

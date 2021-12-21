@@ -24,7 +24,7 @@ const Tesouraria = () => {
             onSnapshot(query(collection(db, 'movimentacao'),
                 where('mes', '==', Number(moment(hoje).format('MM'))),
                 where('ano', '==', Number(moment(hoje).format('YYYY'))),
-                // orderBy('data', 'desc')
+                orderBy('data')
             ), snapshot => {
                 setDados(
                     snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
