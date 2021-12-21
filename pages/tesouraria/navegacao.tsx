@@ -1,39 +1,44 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react"
-import { useState } from "react"
-import moment from 'moment'
-import 'moment/locale/pt-br'
+import { Box, Flex, Heading, Text } from "@chakra-ui/react"
+import moment from "moment"
 
 interface NavegacaoProps {
-    setData:  (any) => void
-    data: any
+    hoje: any
+    setHoje: (any) => void
 }
+
 export const Navegacao = (props: NavegacaoProps) => {
 
-    
+    function backMonth() {
+        props.setHoje(moment(props.hoje).subtract(1, 'months'))
+
+    }
+    function nextMonth() {
+        props.setHoje(moment(props.hoje).add(1, 'months'))
+
+    }
+
     return (
-        <>
-            <Flex w="full" bg='gray.200' py="2" borderRadius="lg">
-                    <Box w="100%" mx="4">
-                        <Heading size="lg"   
-                            onClick={() => props.setData(moment(props.data).subtract(1, 'months'))} >
-                                <ChevronLeftIcon color="green.800" />
-                        </Heading>
-                    </Box>
-                    <Box w="100%" align="center">
-                        <Text color="green.800" >
-                            <Heading as="h3" size="lg">
-                                {moment(props.data).format('MMM')}/{moment(props.data).format('YYYY')}
-                            </Heading>
-                        </Text>
-                    </Box>
-                    <Box w="100%" align="right" mx="4">
-                        <Heading size="lg"
-                            onClick={() => props.setData(moment(props.data).add(1, 'months'))}    >
-                            <ChevronRightIcon color="green.800" />
-                        </Heading>
-                    </Box>
-                </Flex>
-        </>
+        <Flex w="full" bg='gray.200' py="2" borderRadius="lg">
+            <Box w="100%" mx="4">
+                <Heading size="md"
+                    onClick={() => backMonth()} >
+                    <ChevronLeftIcon color="green.800" />
+                </Heading>
+            </Box>
+            <Box w="100%" align="center">
+                <Heading size="md" color="green.800" >
+                    <Text>
+                        {moment(props.hoje).format('MMM')}/{moment(props.hoje).format('YY')}
+                    </Text>
+                </Heading>
+            </Box>
+            <Box w="100%" align="right" mx="4">
+                <Heading size="md"
+                    onClick={() => nextMonth()}    >
+                    <ChevronRightIcon color="green.800" />
+                </Heading>
+            </Box>
+        </Flex>
     )
 }

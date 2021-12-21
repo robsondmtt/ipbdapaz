@@ -99,8 +99,8 @@ export function AuthProvider(props) {
             const token = await user.getIdToken();
             setCurrentUser(user);
             setLoading(false)
-            console.log('token', token);
-            console.log('user', user);
+            // console.log('token', token);
+            // console.log('user', user);
         })
     }, [])
 
@@ -109,10 +109,10 @@ export function AuthProvider(props) {
         onAuthStateChanged(auth, (userChange) => {
             if (userChange) {
                 userChange.getIdTokenResult().then(idTokenResult => {
-                    console.log(idTokenResult.claims)
+                    // console.log(idTokenResult.claims)
                     if (!!idTokenResult.claims.admin) {
-                        console.log('perfil administrador')
-                        console.log(idTokenResult.claims.admin)
+                        // console.log('perfil administrador')
+                        // console.log(idTokenResult.claims.admin)
                         idTokenResult.claims.admin ? setNivelAcesso({ setNivelAcesso: 'admin' }) : setNivelAcesso({ setNivelAcesso: 'convidado' })
                         setNivelAcesso({ setNivelAcesso: 'admin' })
                     }
