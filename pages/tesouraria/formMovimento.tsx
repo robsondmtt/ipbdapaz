@@ -10,7 +10,7 @@ interface FormMovimentoProps {
     setForm: (any) => void
 }
 
-export const FormMovimento = (props: FormMovimentoProps) => {
+const FormMovimento = (props: FormMovimentoProps) => {
 
     const [data, setData] = useState('')
     const [valor, setValor] = useState('')
@@ -112,3 +112,6 @@ export const FormMovimento = (props: FormMovimentoProps) => {
         </Flex>
     )
 }
+
+
+export default FormMovimento

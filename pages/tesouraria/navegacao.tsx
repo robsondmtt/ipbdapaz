@@ -7,7 +7,7 @@ interface NavegacaoProps {
     setHoje: (any) => void
 }
 
-export const Navegacao = (props: NavegacaoProps) => {
+const Navegacao = (props: NavegacaoProps) => {
 
     function backMonth() {
         props.setHoje(moment(props.hoje).subtract(1, 'months'))
@@ -42,3 +42,5 @@ export const Navegacao = (props: NavegacaoProps) => {
         </Flex>
     )
 }
+
+export default Navegacao

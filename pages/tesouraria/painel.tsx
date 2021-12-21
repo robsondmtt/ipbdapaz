@@ -4,7 +4,7 @@ interface PainelProps {
     receita: any;
     despesa: any;
 }
-export const Painel = (props: PainelProps) => {
+const Painel = (props: PainelProps) => {
 
     console.log('receita: ', props.receita);
     console.log('despesa: ', props.despesa);
@@ -58,3 +58,5 @@ export const Painel = (props: PainelProps) => {
         </Flex>
     )
 }
+
+export default Painel

@@ -1,16 +1,15 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react"
 import LayoutContent from "../../components/Layout/LayoutContent"
 import Navbar from "../../components/Nav/Navbar"
 import { useEffect, useState } from "react"
 import moment from 'moment'
 import 'moment/locale/pt-br'
-import { collection, onSnapshot, query, where } from "firebase/firestore"
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import { db } from "../../lib/firebase"
-import { Movimento } from "./movimento"
-import { Navegacao } from "./navegacao"
-import { Painel } from "./painel"
-import { FormMovimento } from "./formMovimento"
+import  Movimento  from "./movimento"
+import  Navegacao  from "./navegacao"
+import  Painel  from "./painel"
+import  FormMovimento  from "./formMovimento"
 
 const Tesouraria = () => {
 
@@ -24,7 +23,8 @@ const Tesouraria = () => {
         function getMovimentos() {
             onSnapshot(query(collection(db, 'movimentacao'),
                 where('mes', '==', Number(moment(hoje).format('MM'))),
-                where('ano', '==', Number(moment(hoje).format('YYYY')))
+                where('ano', '==', Number(moment(hoje).format('YYYY'))),
+                // orderBy('data', 'desc')
             ), snapshot => {
                 setDados(
                     snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
@@ -35,11 +35,7 @@ const Tesouraria = () => {
     }, [hoje])
 
 
-    console.log(moment(hoje).format('MM-YYYY'));
-
-    // console.log('receita', JSON.stringify(dados.filter(d => d.tipo === 'receita'))) 
-    // console.log('despesa', JSON.stringify(dados.filter(d => d.tipo === 'despesa'))) 
-
+  
 
 
 

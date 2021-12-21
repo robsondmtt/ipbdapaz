@@ -4,7 +4,7 @@ import moment from "moment"
 interface MovimentoProps {
     dados: any
 }
-export const Movimento = (props: MovimentoProps) => {
+const Movimento = (props: MovimentoProps) => {
 
 
     return (
@@ -39,3 +39,6 @@ export const Movimento = (props: MovimentoProps) => {
         </>
     )
 }
+
+
+export default Movimento
