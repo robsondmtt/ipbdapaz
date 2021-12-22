@@ -6,6 +6,7 @@ import app from '../../lib/firebase'
 import { FaGoogle } from 'react-icons/fa';
 import { useAuthState } from "react-firebase-hooks/auth";
 import useAuth from "../../hooks/useAuth";
+import Link from "next/link";
 
 const Navbar = () => {
     const [user] = useAuthState(getAuth(app));
@@ -18,7 +19,9 @@ const Navbar = () => {
 
                 <Flex>
                     <Box>
+                        <Link href={"/"} passHref>
                         <Heading size='lg' color={'white'}>IPB</Heading>
+                        </Link>
                     </Box>
                     <Spacer />
                     <Box>

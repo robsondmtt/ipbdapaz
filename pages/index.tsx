@@ -13,7 +13,7 @@ import useAuth from '../hooks/useAuth'
 export default function Home() {
 
   
-  // console.log(user);
+  const {nivelAcesso} = useAuth()
   
   return (
 
@@ -23,7 +23,7 @@ export default function Home() {
       <Container maxW='container.xl'>
 
         <SimpleGrid mt={8} columns={[1, 2, 3]} spacing='20px'>
-          <MenuInicial link="/perfil" name="Perfil" />
+          {nivelAcesso === 'admin' && <MenuInicial link="/perfil" name="Perfil" />}
           <MenuInicial link="/financeiro" name="Financeiro" />
           <MenuInicial link="/programacoes" name="Programações" />
           <MenuInicial link="/conselho" name="Conselho" />
