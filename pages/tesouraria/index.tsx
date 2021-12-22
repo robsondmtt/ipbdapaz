@@ -10,7 +10,7 @@ import Movimento from "./movimento"
 import Navegacao from "./navegacao"
 import Painel from "./painel"
 import FormMovimento from "./formMovimento"
-import { useAuth } from "../../context/AuthContext"
+import useAuth from "../../hooks/useAuth"
 
 const Tesouraria = () => {
 
@@ -18,7 +18,7 @@ const Tesouraria = () => {
     const [dados, setDados] = useState([])
     const [form, setForm] = useState(false)
 
-    const { nivelAcesso } = useAuth()
+    // const { } = useAuth()
    
 
     useEffect(() => {
@@ -53,8 +53,7 @@ const Tesouraria = () => {
                     receita={dados.filter(d => d.tipo === 'receita')}
                     despesa={dados.filter(d => d.tipo === 'despesa')} />
 
-                {
-                    nivelAcesso  === 'admin' && (
+                
                         <Box align="right" >
                             <Button
                                 colorScheme="green"
@@ -65,8 +64,7 @@ const Tesouraria = () => {
 
                         </Box>
 
-                    )
-                }
+                   
 
                 {form ? <FormMovimento setForm={setForm} /> : <Movimento dados={dados} />}
 
