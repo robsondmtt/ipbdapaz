@@ -18,20 +18,23 @@ const Tesouraria = () => {
     const [dados, setDados] = useState([])
     const [form, setForm] = useState(false)
 
-    // const { } = useAuth()
-   
+    const [loading, setLoading] = useState(false)
+
+
+    const { nivelAcesso } = useAuth()
+
 
     useEffect(() => {
         function getMovimentos() {
+            setLoading(true)
             onSnapshot(query(collection(db, 'movimentacao'),
                 where('mes', '==', Number(moment(hoje).format('MM'))),
                 where('ano', '==', Number(moment(hoje).format('YYYY'))),
-                orderBy('data','desc')
+                orderBy('data', 'desc')
             ), snapshot => {
-                setDados(
-                    snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+                setDados(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+                setLoading(false)
             })
-
         }
         getMovimentos()
     }, [hoje])
@@ -45,31 +48,35 @@ const Tesouraria = () => {
         <>
             <Navbar />
             <LayoutContent>
+                {/* {loading} */}
+                <>
+                    <Navegacao hoje={hoje} setHoje={setHoje} />
+
+                    <Painel
+                        receita={dados.filter(d => d.tipo === 'receita')}
+                        despesa={dados.filter(d => d.tipo === 'despesa')} />
+
+                    {
+                        nivelAcesso  === 'admin' && (
+                            <Box align="right" >
+                                <Button
+                                    colorScheme="green"
+                                    m="2"
+                                    onClick={() => setForm(!form)}>
+                                    {form ? 'Listar Lançamentos' : 'Novo Lançamento'}
+                                </Button>
+
+                            </Box>
+                        )
+                    }
 
 
-                <Navegacao hoje={hoje} setHoje={setHoje} />
-
-                <Painel
-                    receita={dados.filter(d => d.tipo === 'receita')}
-                    despesa={dados.filter(d => d.tipo === 'despesa')} />
-
-                
-                        <Box align="right" >
-                            <Button
-                                colorScheme="green"
-                                m="2"
-                                onClick={() => setForm(!form)}>
-                                {form ? 'Listar Lançamentos' : 'Novo Lançamento'}
-                            </Button>
-
-                        </Box>
-
-                   
-
-                {form ? <FormMovimento setForm={setForm} /> : <Movimento dados={dados} />}
 
 
+                    {form ? <FormMovimento setForm={setForm} /> : <Movimento dados={dados} />}
 
+
+                </>
             </LayoutContent>
         </>
     )

@@ -1,9 +1,9 @@
 
 import { initializeApp, getApp, getApps, FirebaseApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage'
-import { getFunctions } from 'firebase/functions'
+import { getFunctions, httpsCallable } from 'firebase/functions'
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
-import { getFirestore } from 'firebase/firestore';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 
 
 
@@ -42,4 +42,39 @@ const db = getFirestore();
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 export { db, functions, auth, provider };
+
+
+export const criarAdministrador = ({email,uid}) => {
+  const teste = httpsCallable(functions, 'addAdm')
+  teste({ email })
+      .then(res => {
+          console.log(res)
+      })
+      .then(() => {
+      atualizarNivelAcesso(uid,'adm')
+  })
+  
+}
+export const eliminarAdministrador = ({email,uid}) => {
+  const teste2 = httpsCallable(functions, 'deleteAdm')
+  teste2({ email })
+      .then(res => {   
+          console.log(res)
+      })
+      .then(() => {
+          console.log('admin eliminado');
+          
+      atualizarNivelAcesso(uid,'convidado')
+  })
+  
+}
+async function atualizarNivelAcesso(uid,permissao) {
+  
+  await updateDoc(doc(db, "users", uid), {
+      nivelPermissao: permissao
+  }).then(() => {
+      console.log('nivel acesso atualizado');
+      
+  })
+}
 

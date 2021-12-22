@@ -8,7 +8,13 @@ import Login from '../pages/Login'
 import Cookies from 'js-cookie'
 
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext({
+    user: null,
+    currentUser: null,
+    permissao: 'convidado',
+    nivelAcesso: 'convidado',
+    
+});
 
 function gerenciarCookie(logado) {
     if (logado) {
@@ -95,10 +101,17 @@ export function AuthProvider(props) {
                 setCurrentUser(null);
                 setLoading(false)
                 return;
+            } else {
+                const token = await user.getIdToken();
+                setCurrentUser(user);
+                setLoading(false)
+                user.getIdTokenResult().then(idTokenResult => {
+                    if (!!idTokenResult.claims.admin) {
+                        idTokenResult.claims.admin ? setNivelAcesso('admin') : setNivelAcesso('convidado')
+                    }
+
+                })
             }
-            const token = await user.getIdToken();
-            setCurrentUser(user);
-            setLoading(false)
             // console.log('token', token);
             // console.log('user', user);
         })
@@ -111,10 +124,10 @@ export function AuthProvider(props) {
                 userChange.getIdTokenResult().then(idTokenResult => {
                     // console.log(idTokenResult.claims)
                     if (!!idTokenResult.claims.admin) {
-                        // console.log('perfil administrador')
-                        // console.log(idTokenResult.claims.admin)
+                        console.log('perfil administrador')
+                        console.log(idTokenResult.claims.admin)
                         idTokenResult.claims.admin ? setNivelAcesso('admin') : setNivelAcesso('convidado')
-                        setNivelAcesso({ setNivelAcesso: 'admin' })
+                        // setNivelAcesso({ setNivelAcesso: 'admin' })
                     }
                 })
             }

@@ -1,5 +1,6 @@
 import { Badge, Box, Center, Flex, Heading, Spacer, Text } from "@chakra-ui/react"
 import moment from "moment"
+import Navbar from "../../components/Nav/Navbar"
 
 interface MovimentoProps {
     dados: any
@@ -9,6 +10,7 @@ const Movimento = (props: MovimentoProps) => {
 
     return (
         <>
+        
             {
                 props.dados && props.dados.map(item => (
                     <Box bg={item.tipo === 'receita' ? 'green.200' : 'red.200'} p="4" key={item.id} borderRadius="lg" my="4">

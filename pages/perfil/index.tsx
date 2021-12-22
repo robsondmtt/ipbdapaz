@@ -1,97 +1,62 @@
-import app, { functions, db } from '../../lib/firebase'
-import { getFirestore, collection, updateDoc, doc } from 'firebase/firestore';
+import { useEffect } from "react"
+import { criarAdministrador, eliminarAdministrador } from '../../lib/firebase'
+import { getFirestore, collection } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { Button, Center, List, ListItem } from "@chakra-ui/react";
-import { httpsCallable } from "firebase/functions";
+import { Button, Center, List, Box } from "@chakra-ui/react";
+import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
+// import { Box } from "@chakra-ui/react";
+
 
 const Perfil = () => {
 
+
     const [users, loading, error] = useCollection(
-        collection(getFirestore(app), 'users'),
+        collection(getFirestore(), 'users'),
         {
             snapshotListenOptions: { includeMetadataChanges: true },
         }
     )
-    
-
-    const criarAdministrador = ({email,uid}) => {
-        const teste = httpsCallable(functions, 'addAdm')
-        console.log(email,uid);
-        
-        teste({ email })
-            .then(res => {
-                console.log(res)
-            })
-            .then(() => {
-            atualizarNivelAcessoAdm(uid)
-        }
-        ).catch(err => console.log(err.message))
-        
-    }
-    const eliminarAdministrador = ({email,uid}) => {
-        console.log('estou aqui');
-        
-        const teste2 = httpsCallable(functions, 'deleteAdm')
-        teste2({ email })
-            .then(res => {   
-                console.log(res)
-            })
-            .then(() => {
-                console.log('admin eliminado');
-                
-            atualizarNivelAcessoConvidado(uid)
-        })
-        
-    }
-    async function atualizarNivelAcessoAdm(uid) {
-        
-        await updateDoc(doc(db, "users", uid), {
-            nivelPermissao: 'adm'
-        }).then(() => {
-            console.log('nivel acesso atualizado');
-            
-        })
-    }
-    async function atualizarNivelAcessoConvidado(uid) {
-        
-        await updateDoc(doc(db, "users", uid), {
-            nivelPermissao: 'convidado'
-        }).then(() => {
-            console.log('nivel acesso atualizado');
-            
-        })
-    }
-   
+    console.log(users);
 
 
 
-return (
-    <div>
+
+    return (
         <div>
-            
-            {error && <strong>Error: {JSON.stringify(error)}</strong>}
-            {loading && <Loading />}
-            {users && (
+            <div>
+                {/* {user && user.email} */}
+                {error && <strong>Error: {JSON.stringify(error)}</strong>}
+                {loading && <Loading />}
+                {users && (
 
-                <Center>
-                    <List spacing={3}>
+                    <Center>
+                        <List spacing={3}>
 
 
-                        Collection:{' '}
-                        {users.docs.map( item => (
-                            <ListItem key={item.id} my="3">
-                                {item.data().email},{' '}, {item.data().nivelPermissao}
-                                <Button bg="green.300" onClick={() => criarAdministrador({email:item.data().email,uid:item.id})} >Criar Administrador</Button>
-                                <Button bg="red.400" onClick={() => eliminarAdministrador({email:item.data().email,uid:item.id})} >Eliminar Administrador</Button>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Center>
-            )}
+                            Collection:{' '}
+                            {users.docs.map((doc) => (
+                                <Box key={doc.id} bg="gray.100" borderRadius="lg" my="4" p="4">
+                                    <Center>
+                                        {doc.data().email}
+                                    </Center>
+                                    <Center>
+                                        {doc.data().nivelPermissao}
+                                    </Center>
+                                    <Center mb="2">
+                                        <Button bg="green.300" mr="1" onClick={() => criarAdministrador({ email: doc.data().email, uid: doc.id })} >Criar Administrador</Button>
+                                        <Button bg="red.400" ml="1" onClick={() => eliminarAdministrador({ email: doc.data().email, uid: doc.id })} >Eliminar Administrador</Button>
+                                    </Center>
+                                    
+                                </Box>
+
+                            ))}
+                        </List>
+                    </Center>
+                )}
+            </div>
         </div>
-    </div>
-)
+    )
 }
 
 export default Perfil
