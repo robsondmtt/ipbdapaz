@@ -5,11 +5,12 @@ import { useEffect, useState } from "react"
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore"
-import { db } from "../../lib/firebase"
-import  Movimento  from "./movimento"
-import  Navegacao  from "./navegacao"
-import  Painel  from "./painel"
-import  FormMovimento  from "./formMovimento"
+import { auth, db } from "../../lib/firebase"
+import Movimento from "./movimento"
+import Navegacao from "./navegacao"
+import Painel from "./painel"
+import FormMovimento from "./formMovimento"
+import { useAuth } from "../../context/AuthContext"
 
 const Tesouraria = () => {
 
@@ -17,14 +18,15 @@ const Tesouraria = () => {
     const [dados, setDados] = useState([])
     const [form, setForm] = useState(false)
 
-
+    const { nivelAcesso } = useAuth()
+   
 
     useEffect(() => {
         function getMovimentos() {
             onSnapshot(query(collection(db, 'movimentacao'),
                 where('mes', '==', Number(moment(hoje).format('MM'))),
                 where('ano', '==', Number(moment(hoje).format('YYYY'))),
-                orderBy('data')
+                orderBy('data','desc')
             ), snapshot => {
                 setDados(
                     snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
@@ -35,7 +37,7 @@ const Tesouraria = () => {
     }, [hoje])
 
 
-  
+
 
 
 
@@ -50,19 +52,25 @@ const Tesouraria = () => {
                 <Painel
                     receita={dados.filter(d => d.tipo === 'receita')}
                     despesa={dados.filter(d => d.tipo === 'despesa')} />
-                <Box align="right" >
-                    <Button
-                        colorScheme="green"
-                        m="2"
-                        onClick={() => setForm(!form)}>
-                        {form ? 'Listar Lançamentos' : 'Novo Lançamento'}
-                    </Button>
 
-                </Box>
+                {
+                    nivelAcesso  === 'admin' && (
+                        <Box align="right" >
+                            <Button
+                                colorScheme="green"
+                                m="2"
+                                onClick={() => setForm(!form)}>
+                                {form ? 'Listar Lançamentos' : 'Novo Lançamento'}
+                            </Button>
 
-                { form ? <FormMovimento setForm={setForm} /> : <Movimento dados={dados} /> }
-                    
-                
+                        </Box>
+
+                    )
+                }
+
+                {form ? <FormMovimento setForm={setForm} /> : <Movimento dados={dados} />}
+
+
 
             </LayoutContent>
         </>

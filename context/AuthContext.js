@@ -1,6 +1,6 @@
 import app from '../lib/firebase'
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from '@firebase/auth';
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 
 import Loading from '../components/Loading'
 import Login from '../pages/Login'
@@ -58,7 +58,7 @@ export function AuthProvider(props) {
                     const query = doc(db, "users", result.user.uid);
                     const data = await getDoc(query);
 
-                    setPermissao(data.data().permissao)
+                    setPermissao(data.data().nivelPermissao)
                 }
 
                 route.push('/')
@@ -113,7 +113,7 @@ export function AuthProvider(props) {
                     if (!!idTokenResult.claims.admin) {
                         // console.log('perfil administrador')
                         // console.log(idTokenResult.claims.admin)
-                        idTokenResult.claims.admin ? setNivelAcesso({ setNivelAcesso: 'admin' }) : setNivelAcesso({ setNivelAcesso: 'convidado' })
+                        idTokenResult.claims.admin ? setNivelAcesso('admin') : setNivelAcesso('convidado')
                         setNivelAcesso({ setNivelAcesso: 'admin' })
                     }
                 })
@@ -148,6 +148,7 @@ export function AuthProvider(props) {
                 currentUser,
                 loading,
                 permissao,
+                // nivelAcesso,
                 carregando,
                 login,
                 logout,
