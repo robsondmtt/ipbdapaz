@@ -36,7 +36,7 @@ export default function Home() {
           <MenuInicial link="/boletim" name="Boletim" />
           <MenuInicial link="/pedidos-oracao" name="Pedidos de Oração" />
           <MenuInicial link="/pedidos-visita" name="Pedidos de Visita" />
-          <MenuInicial link="/tesouraria" name="Tesouraria" />
+          {permissao === 'conselho' || permissao === 'admin' && <MenuInicial link="/tesouraria" name="Tesouraria" />}
         </SimpleGrid>
       </Container>
       {/* </LayoutCenter> */}
