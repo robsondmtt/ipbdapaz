@@ -103,6 +103,10 @@ export function AuthProvider(props) {
                     setPermissao('admin');
                 }
 
+                if(idTokenResult.claims.conselho){
+                    setPermissao('conselho');
+                }
+
             })
 
         })
@@ -117,6 +121,10 @@ export function AuthProvider(props) {
                     // set custom claims 
                     if (idTokenResult.claims.admin) {
                         setPermissao('admin')
+                        console.log(permissao)
+                    }
+                    if(idTokenResult.claims.conselho){
+                        setPermissao('conselho')
                         console.log(permissao)
                     }
                 })

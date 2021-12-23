@@ -15,12 +15,12 @@ const MenuInicial = (props: MenuInicialProps) => {
               <Center h="100%" justifyContent={'space-around'}>{props.icone}{props.name}</Center>
             </Box> */}
 
-        <Box color="gray" height='80px' my="4" style={{ cursor: 'pointer' }}>
+        <Box color="green.800" height='80px' my="4" style={{ cursor: 'pointer' }}>
           <Center my="2">
-            <Image src={props.icone} alt={props.name} width={[8, 16]} />
+            <Image src={props.icone} alt={props.name} width={[12, 16]} />
           </Center>
           <Center>
-            <Text fontSize={[14,18]}>
+            <Text fontSize={[16,18]}>
             {props.name}
             </Text>
           </Center>
