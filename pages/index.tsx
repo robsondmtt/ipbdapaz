@@ -25,7 +25,7 @@ export default function Home() {
       {/* <LayoutCenter> */}
       <Container maxW='container.xl'>
 
-        <SimpleGrid mt={8} columns={[1, 2, 3]} spacing='20px'>
+        <SimpleGrid my={8} columns={[1, 2, 3]} spacing='20px'>
           {permissao === 'admin' && <MenuInicial link="/perfil" name="Perfil" />}
           <MenuInicial link="/financeiro" 
             // icone={<Icon as={FaCalendar} />} 
