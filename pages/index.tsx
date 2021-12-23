@@ -34,7 +34,7 @@ export default function Home() {
           <MenuInicial link="/boletim" icone="/icones/boletim.png" name="Boletim" />
           <MenuInicial link="/aconselhamentos" icone="/icones/visita.png" name="Aconselhamentos" />
           <MenuInicial link="/pedidos-oracao" icone="/icones/oracao.png" name="Pedidos de Oração" />
-          {permissao === 'conselho' || permissao === 'admin' && 
+          {permissao === 'conselho'  && 
           <MenuInicial link="/tesouraria" icone="/icones/bau.png" name="Tesouraria" />}
         </SimpleGrid>
       </Container>
