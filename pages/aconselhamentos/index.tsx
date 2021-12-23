@@ -1,15 +1,15 @@
 import LayoutContent from "../../components/Layout/LayoutContent"
 import Navbar from "../../components/Nav/Navbar"
 
-const Boletim = () => {
+const Aconselhamentos = () => {
     return (
         <div>
             <Navbar />
             <LayoutContent>
-                Boletim
+                Aconselhamentos
             </LayoutContent>
         </div>
     )
 }
 
-export default Boletim
+export default Aconselhamentos

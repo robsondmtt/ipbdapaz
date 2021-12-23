@@ -5,6 +5,8 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { Button, Center, List, Box } from "@chakra-ui/react";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
+import Navbar from "../../components/Nav/Navbar";
+import LayoutContent from "../../components/Layout/LayoutContent";
 // import { Box } from "@chakra-ui/react";
 
 
@@ -25,6 +27,9 @@ const Perfil = () => {
     return (
         <div>
             <div>
+            <Navbar />
+            <LayoutContent>
+                
                 {/* {user && user.email} */}
                 {error && <strong>Error: {JSON.stringify(error)}</strong>}
                 {loading && <Loading />}
@@ -58,6 +63,7 @@ const Perfil = () => {
                         </List>
                     </Center>
                 )}
+                </LayoutContent>
             </div>
         </div>
     )

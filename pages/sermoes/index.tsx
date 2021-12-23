@@ -1,7 +1,13 @@
+import LayoutContent from "../../components/Layout/LayoutContent"
+import Navbar from "../../components/Nav/Navbar"
+
 const Sermoes = () => {
     return (
         <div>
-            Sermoes
+            <Navbar />
+            <LayoutContent>
+                Sermoes
+            </LayoutContent>
         </div>
     )
 }
