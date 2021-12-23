@@ -19,14 +19,7 @@ const Painel = (props: PainelProps) => {
 
     return (
         <>
-            <Box>
-                <Box width={['50%', '50%']} bg="red">a</Box>
-                <Box width={['50%', '50%']} bg="green">b</Box>
-                <Box width={['100%','100%']} bg="teal">c</Box>
-            </Box>
-
-
-
+           
             <Flex w="full" >
                 <Box w="100%" mx={["1", "1"]} align="center" alignItems={'center'}>
                     <Box bg="blue.500" color="white" borderRadius="lg" py="2" my="6">

@@ -13,7 +13,7 @@ const Movimento = (props: MovimentoProps) => {
 
             {
                 props.dados && props.dados.map(item => (
-                    <Box bg={item.tipo === 'receita' ? 'green.200' : 'red.200'} p="4" key={item.id} borderRadius="lg" my="4">
+                    <Box bg={item.tipo === 'receita' ? 'green.100' : 'red.100'} p="2" key={item.id} borderRadius="lg" my="4">
                         <Flex>
                             <Badge variant='solid' colorScheme={item.tipo === 'receita' ? 'green' : 'red'}>
                                 {item.tipo}
@@ -22,21 +22,17 @@ const Movimento = (props: MovimentoProps) => {
                             <Badge variant='solid' colorScheme={item.tipo === 'receita' ? 'green' : 'red'}>
                                 {moment(item.data.toDate()).format('DD/MM/YYYY')}
                             </Badge>
-                            {/* <Image
-                                width={16}
-                                src='/icones/bau.png'
-                                alt='Dan Abramov'
-                            /> */}
+                           
 
                         </Flex>
                         <Center>
-                            <Text fontSize="lg">{item.descricao}</Text>
+                            <Text fontSize={[18,20,22]}>{item.descricao}</Text>
                         </Center>
                         <Center>
-                            <Text>{item.observacao}</Text>
+                            <Text fontSize={[14,16,18]}>{item.observacao}</Text>
                         </Center>
                         <Center>
-                            <Text fontSize="2xl">
+                            <Text fontSize={[20, 22, 24]}>
                                 <strong>
                                     {item.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
                                 </strong>
