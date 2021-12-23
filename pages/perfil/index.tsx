@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { criarAdministrador, criarConselho, eliminarAdministrador, eliminarConselho } from '../../lib/firebase'
+import { auth, criarAdministrador, criarConselho, eliminarAdministrador, eliminarConselho } from '../../lib/firebase'
 import { getFirestore, collection } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Button, Center, List, Box } from "@chakra-ui/react";
@@ -22,7 +22,9 @@ const Perfil = () => {
     console.log(users);
 
 
-
+    const user = auth.currentUser
+    console.log(user.email);
+    
 
     return (
         <div>
@@ -33,7 +35,8 @@ const Perfil = () => {
                 {/* {user && user.email} */}
                 {error && <strong>Error: {JSON.stringify(error)}</strong>}
                 {loading && <Loading />}
-                {users && (
+                {user.email !== 'robson.dev9@gmail.com' && 'A página pode ser visualizada apenas pelo administrador do sistema'}
+                {users && user.email === 'robson.dev9@gmail.com' && (
 
                     <Center>
                         <List spacing={3}>
