@@ -21,20 +21,20 @@ const Navegacao = (props: NavegacaoProps) => {
     return (
         <Flex w="full" bg='gray.200' py="2" borderRadius="lg">
             <Box w="100%" mx="4">
-                <Heading size="md"
+                <Heading size="lg"
                     onClick={() => backMonth()} >
                     <ChevronLeftIcon color="green.800" />
                 </Heading>
             </Box>
             <Box w="100%" align="center">
-                <Heading size="md" color="green.800" >
+                <Heading size="lg" color="green.800" >
                     <Text>
-                        {moment(props.hoje).format('MMM')}/{moment(props.hoje).format('YY')}
+                        {moment(props.hoje).format('MMM').toUpperCase()}/{moment(props.hoje).format('YY')}
                     </Text>
                 </Heading>
             </Box>
             <Box w="100%" align="right" mx="4">
-                <Heading size="md"
+                <Heading size="lg"
                     onClick={() => nextMonth()}    >
                     <ChevronRightIcon color="green.800" />
                 </Heading>

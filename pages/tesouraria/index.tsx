@@ -21,7 +21,7 @@ const Tesouraria = () => {
     const [loading, setLoading] = useState(false)
 
 
-    const { permissao } = useAuth()
+    const { permissao, currentUser } = useAuth()
 
 
     useEffect(() => {
@@ -57,11 +57,12 @@ const Tesouraria = () => {
                         despesa={dados.filter(d => d.tipo === 'despesa')} />
 
                     {
-                        permissao  === 'admin' && (
+                        currentUser && currentUser.uid  === '0F9Bqa5bDqSHNRmgrMy9Xn9JVT23' && (
                             <Box align="right" >
                                 <Button
                                     colorScheme="green"
                                     m="2"
+                                    size="sm"
                                     onClick={() => setForm(!form)}>
                                     {form ? 'Listar Lançamentos' : 'Novo Lançamento'}
                                 </Button>

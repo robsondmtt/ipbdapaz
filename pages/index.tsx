@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LayoutCenter from '../components/Layout/LayoutContent'
 import MenuInicial from '../components/Layout/MenuInicial'
+import Loading from '../components/Loading'
 import Navbar from '../components/Nav/Navbar'
 import useAuth from '../hooks/useAuth'
 
@@ -16,9 +17,9 @@ import useAuth from '../hooks/useAuth'
 export default function Home() {
 
 
-  const { permissao } = useAuth()
-
-  return (
+  const { permissao, currentUser } = useAuth()
+  
+  return currentUser ? (
 
     <>
       <Navbar />
@@ -26,7 +27,7 @@ export default function Home() {
       <Container maxW='container.xl'>
 
         <SimpleGrid my={8} columns={[ 2, 3]} spacing='20px'>
-          {permissao === 'admin' && <MenuInicial link="/perfil" icone="/icones/perfil.png" name="Perfil" />}
+          {permissao === 'admin' && currentUser.email === 'robson.dev9@gmail.com' && <MenuInicial link="/perfil" icone="/icones/perfil.png" name="Perfil" />}
           <MenuInicial link="/programacoes" icone="/icones/agenda.png" name="Programações" />
           <MenuInicial link="/conselho" icone="/icones/encontro.png" name="Conselho" />
           <MenuInicial link="/sermoes" icone="/icones/sermao.png" name="Sermões" />
@@ -39,6 +40,6 @@ export default function Home() {
       </Container>
       {/* </LayoutCenter> */}
     </>
-  )
+  ) : <Loading />
 }
 

@@ -1,6 +1,6 @@
 import { Box, Container, Flex, Heading, Spacer } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
-import { Avatar, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
+import { Avatar, Image, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { getAuth } from "@firebase/auth";
 import app from '../../lib/firebase'
 import { FaGoogle } from 'react-icons/fa';
@@ -14,13 +14,14 @@ const Navbar = () => {
     const { login, logout } = useAuth()
 
     return (
-        <Box w="full" p={4} bg="green.600">
+        <Box w="full" p={4}   bgGradient='linear(to-b, green.500, green.300, white)'>
             <Container maxW='container.lg'  >
 
                 <Flex>
                     <Box>
                         <Link href={"/"} passHref>
-                        <Heading size='lg' color={'white'}>IPB</Heading>
+                            <Image src={'/ipb.png'} alt="IPB" w="20" />
+                        {/* <Heading size='lg' color={'gray'}>IPB</Heading> */}
                         </Link>
                     </Box>
                     <Spacer />
