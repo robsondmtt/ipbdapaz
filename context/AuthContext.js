@@ -11,9 +11,8 @@ import Cookies from 'js-cookie'
 export const AuthContext = createContext({
     user: null,
     currentUser: null,
-    permissao: 'convidado',
-    nivelAcesso: 'convidado',
-    
+    permissao: 'convidado'
+
 });
 
 function gerenciarCookie(logado) {
@@ -29,8 +28,8 @@ function gerenciarCookie(logado) {
 export function AuthProvider(props) {
     const [user, setUser] = useState(null)
     const [carregando, setCarregando] = useState(true)
-    const [permissao, setPermissao] = useState(0)
-    const [nivelAcesso, setNivelAcesso] = useState('convidado')
+    // const [permissao, setPermissao] = useState('convidado')
+    const [permissao, setPermissao] = useState('convidado')
 
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -70,14 +69,7 @@ export function AuthProvider(props) {
                 route.push('/')
                 setCarregando(false)
             }).catch((error) => {
-
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
+                console.log(error);
             })
     }
 
@@ -95,57 +87,46 @@ export function AuthProvider(props) {
 
     useEffect(() => {
         const auth = getAuth()
-        return auth.onIdTokenChanged(async (user) => {
+        auth.onIdTokenChanged(async (user) => {
             if (!user) {
                 console.log('no user');
                 setCurrentUser(null);
                 setLoading(false)
                 return;
-            } else {
-                const token = await user.getIdToken();
-                setCurrentUser(user);
-                setLoading(false)
-                user.getIdTokenResult().then(idTokenResult => {
-                    if (!!idTokenResult.claims.admin) {
-                        idTokenResult.claims.admin ? setNivelAcesso('admin') : setNivelAcesso('convidado')
-                    }
-
-                })
             }
-            // console.log('token', token);
-            // console.log('user', user);
+            setCurrentUser(user);
+            setLoading(false)
+
+            // set custom claims 
+            user.getIdTokenResult().then(idTokenResult => {
+                if (idTokenResult.claims.admin) {
+                    setPermissao('admin');
+                }
+
+            })
+
         })
-    }, [])
+    }, [permissao])
 
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (userChange) => {
             if (userChange) {
                 userChange.getIdTokenResult().then(idTokenResult => {
-                    // console.log(idTokenResult.claims)
-                    if (!!idTokenResult.claims.admin) {
-                        console.log('perfil administrador')
-                        console.log(idTokenResult.claims.admin)
-                        idTokenResult.claims.admin ? setNivelAcesso('admin') : setNivelAcesso('convidado')
-                        // setNivelAcesso({ setNivelAcesso: 'admin' })
+
+                    // set custom claims 
+                    if (idTokenResult.claims.admin) {
+                        setPermissao('admin')
+                        console.log(permissao)
                     }
                 })
             }
+            
         });
 
 
-        // if (Cookies.get('admin-template-cod3r-auth')) {
-        //     const auth = getAuth();
-        //     const cancelar = auth.onIdTokenChanged(configurarSessao)
-        //     // setUser({
 
-        //     // })
-
-        //     return () => cancelar()
-        // } else {
-        //     setCarregando(false)
-        // }
-    }, [])
+    }, [permissao])
 
 
     if (loading) {
@@ -161,11 +142,9 @@ export function AuthProvider(props) {
                 currentUser,
                 loading,
                 permissao,
-                // nivelAcesso,
                 carregando,
                 login,
                 logout,
-                nivelAcesso,
                 // recuperarSenha,
                 // cadastrar,
                 // // loginGoogle,
@@ -176,6 +155,5 @@ export function AuthProvider(props) {
     }
 }
 
-// export const useAuth = () => useContext(AuthContext)
 
 export default AuthContext

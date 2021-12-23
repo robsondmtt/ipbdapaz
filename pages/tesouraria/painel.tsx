@@ -6,9 +6,7 @@ interface PainelProps {
 }
 const Painel = (props: PainelProps) => {
 
-    console.log('receita: ', props.receita);
-    console.log('despesa: ', props.despesa);
-
+        
     const totalReceita = props.receita.reduce(getTotalReceita, 0)
     function getTotalReceita(total, item) {
         return total + item.valor

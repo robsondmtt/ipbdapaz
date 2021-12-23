@@ -55,6 +55,17 @@ export const criarAdministrador = ({email,uid}) => {
   })
   
 }
+export const criarConselho = ({email,uid}) => {
+  const teste = httpsCallable(functions, 'addConselho')
+  teste({ email })
+      .then(res => {
+          console.log(res)
+      })
+      .then(() => {
+      atualizarNivelAcesso(uid,'conselho')
+  })
+  
+}
 export const eliminarAdministrador = ({email,uid}) => {
   const teste2 = httpsCallable(functions, 'deleteAdm')
   teste2({ email })
@@ -63,6 +74,19 @@ export const eliminarAdministrador = ({email,uid}) => {
       })
       .then(() => {
           console.log('admin eliminado');
+          
+      atualizarNivelAcesso(uid,'convidado')
+  })
+  
+}
+export const eliminarConselho = ({email,uid}) => {
+  const teste2 = httpsCallable(functions, 'deleteConselho')
+  teste2({ email })
+      .then(res => {   
+          console.log(res)
+      })
+      .then(() => {
+          console.log('conselho eliminado');
           
       atualizarNivelAcesso(uid,'convidado')
   })

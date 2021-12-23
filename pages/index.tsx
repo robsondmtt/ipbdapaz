@@ -8,13 +8,16 @@ import MenuInicial from '../components/Layout/MenuInicial'
 import Navbar from '../components/Nav/Navbar'
 import useAuth from '../hooks/useAuth'
 
+// import { Icon } from '@chakra-ui/react'
+// import { FaCalendar } from 'react-icons/fa'
+
 
 
 export default function Home() {
 
-  
-  const {nivelAcesso} = useAuth()
-  
+
+  const { permissao } = useAuth()
+
   return (
 
     <>
@@ -23,8 +26,10 @@ export default function Home() {
       <Container maxW='container.xl'>
 
         <SimpleGrid mt={8} columns={[1, 2, 3]} spacing='20px'>
-          {nivelAcesso === 'admin' && <MenuInicial link="/perfil" name="Perfil" />}
-          <MenuInicial link="/financeiro" name="Financeiro" />
+          {permissao === 'admin' && <MenuInicial link="/perfil" name="Perfil" />}
+          <MenuInicial link="/financeiro" 
+            // icone={<Icon as={FaCalendar} />} 
+            name="Financeiro" />
           <MenuInicial link="/programacoes" name="Programações" />
           <MenuInicial link="/conselho" name="Conselho" />
           <MenuInicial link="/sermoes" name="Sermões" />
@@ -32,7 +37,6 @@ export default function Home() {
           <MenuInicial link="/pedidos-oracao" name="Pedidos de Oração" />
           <MenuInicial link="/pedidos-visita" name="Pedidos de Visita" />
           <MenuInicial link="/tesouraria" name="Tesouraria" />
-          
         </SimpleGrid>
       </Container>
       {/* </LayoutCenter> */}

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { criarAdministrador, eliminarAdministrador } from '../../lib/firebase'
+import { criarAdministrador, criarConselho, eliminarAdministrador, eliminarConselho } from '../../lib/firebase'
 import { getFirestore, collection } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { Button, Center, List, Box } from "@chakra-ui/react";
@@ -46,6 +46,10 @@ const Perfil = () => {
                                     <Center mb="2">
                                         <Button bg="green.300" mr="1" onClick={() => criarAdministrador({ email: doc.data().email, uid: doc.id })} >Criar Administrador</Button>
                                         <Button bg="red.400" ml="1" onClick={() => eliminarAdministrador({ email: doc.data().email, uid: doc.id })} >Eliminar Administrador</Button>
+                                    </Center>
+                                    <Center mb="2">
+                                        <Button bg="green.300" mr="1" onClick={() => criarConselho({ email: doc.data().email, uid: doc.id })} >Criar Conselho</Button>
+                                        <Button bg="red.400" ml="1" onClick={() => eliminarConselho({ email: doc.data().email, uid: doc.id })} >Eliminar Conselho</Button>
                                     </Center>
                                     
                                 </Box>

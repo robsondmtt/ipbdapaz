@@ -21,7 +21,7 @@ const Tesouraria = () => {
     const [loading, setLoading] = useState(false)
 
 
-    const { nivelAcesso } = useAuth()
+    const { permissao } = useAuth()
 
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const Tesouraria = () => {
                         despesa={dados.filter(d => d.tipo === 'despesa')} />
 
                     {
-                        nivelAcesso  === 'admin' && (
+                        permissao  === 'admin' && (
                             <Box align="right" >
                                 <Button
                                     colorScheme="green"

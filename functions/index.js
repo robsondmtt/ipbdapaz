@@ -38,6 +38,47 @@ exports.addAdm = functions.https.onCall((data,context) => {
     })
 })
 
+exports.addConselho = functions.https.onCall((data,context) => {
+
+    if(context.auth.token.admin !== true){
+        return {error: 'solo admin puede modificar'}
+    }
+
+    return admin.auth().getUserByEmail(data.email).then( user => {
+        return admin.auth().setCustomUserClaims(user.uid, {
+            conselho: true
+        })
+    }).then(() => {
+        return {
+            message: `Sucesso!!! ${data.email} é Conselho..`
+        }
+    }).catch(err => {
+        return err
+    })
+})
+
+
+exports.deleteConselho = functions.https.onCall((data, context) => {
+
+    if(context.auth.token.admin !== true){
+        return {error: 'solo admin puede modificar'}
+    }
+
+    return admin.auth().getUserByEmail(data.email).then( user => {
+        return admin.auth().setCustomUserClaims(user.uid, {
+            conselho: false
+        })
+    }).then(() => {
+        return {
+            message: `Success!!! ${data.email} tornou-se convidado..`
+        }
+    }).catch(err => {
+        return err
+    })
+
+    
+})
+
 exports.deleteAdm = functions.https.onCall((data, context) => {
 
     if(context.auth.token.admin !== true){
@@ -58,5 +99,6 @@ exports.deleteAdm = functions.https.onCall((data, context) => {
 
     
 })
+
 
 
