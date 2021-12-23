@@ -25,18 +25,19 @@ export default function Home() {
       {/* <LayoutCenter> */}
       <Container maxW='container.xl'>
 
-        <SimpleGrid my={8} columns={[1, 2, 3]} spacing='20px'>
-          {permissao === 'admin' && <MenuInicial link="/perfil" name="Perfil" />}
-          <MenuInicial link="/financeiro" 
+        <SimpleGrid my={8} columns={[ 2, 3]} spacing='20px'>
+          {permissao === 'admin' && <MenuInicial link="/perfil" icone="/icones/perfil.png" name="Perfil" />}
+          {/* <MenuInicial link="/financeiro" 
             // icone={<Icon as={FaCalendar} />} 
-            name="Financeiro" />
-          <MenuInicial link="/programacoes" name="Programações" />
-          <MenuInicial link="/conselho" name="Conselho" />
-          <MenuInicial link="/sermoes" name="Sermões" />
-          <MenuInicial link="/boletim" name="Boletim" />
-          <MenuInicial link="/pedidos-oracao" name="Pedidos de Oração" />
-          <MenuInicial link="/pedidos-visita" name="Pedidos de Visita" />
-          {permissao === 'conselho' || permissao === 'admin' && <MenuInicial link="/tesouraria" name="Tesouraria" />}
+            name="Financeiro" /> */}
+          <MenuInicial link="/programacoes" icone="/icones/agenda.png" name="Programações" />
+          <MenuInicial link="/conselho" icone="/icones/encontro.png" name="Conselho" />
+          <MenuInicial link="/sermoes" icone="/icones/sermao.png" name="Sermões" />
+          <MenuInicial link="/boletim" icone="/icones/boletim.png" name="Boletim" />
+          <MenuInicial link="/pedidos-oracao" icone="/icones/oracao.png" name="Pedidos de Oração" />
+          <MenuInicial link="/pedidos-visita" icone="/icones/visita.png" name="Pedidos de Visita" />
+          {permissao === 'conselho' || permissao === 'admin' && 
+          <MenuInicial link="/tesouraria" icone="/icones/bau.png" name="Tesouraria" />}
         </SimpleGrid>
       </Container>
       {/* </LayoutCenter> */}

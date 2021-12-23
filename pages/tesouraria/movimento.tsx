@@ -1,4 +1,4 @@
-import { Badge, Box, Center, Flex, Heading, Spacer, Text } from "@chakra-ui/react"
+import { Badge, Box, Center, Flex, Heading, Image, Spacer, Text } from "@chakra-ui/react"
 import moment from "moment"
 import Navbar from "../../components/Nav/Navbar"
 
@@ -10,7 +10,7 @@ const Movimento = (props: MovimentoProps) => {
 
     return (
         <>
-        
+
             {
                 props.dados && props.dados.map(item => (
                     <Box bg={item.tipo === 'receita' ? 'green.200' : 'red.200'} p="4" key={item.id} borderRadius="lg" my="4">
@@ -19,7 +19,14 @@ const Movimento = (props: MovimentoProps) => {
                                 {item.tipo}
                             </Badge>
                             <Spacer />
-                            <Text>{moment(item.data.toDate()).format('DD/MM/YYYY')}</Text>
+                            <Badge variant='solid' colorScheme={item.tipo === 'receita' ? 'green' : 'red'}>
+                                {moment(item.data.toDate()).format('DD/MM/YYYY')}
+                            </Badge>
+                            {/* <Image
+                                width={16}
+                                src='/icones/bau.png'
+                                alt='Dan Abramov'
+                            /> */}
 
                         </Flex>
                         <Center>
