@@ -22,7 +22,7 @@ const FormMovimento = (props: FormMovimentoProps) => {
 
 
     async function salvarLancamento() {
-        let data1 = `${data} 12:00`
+        let data1 = `${data} 0:00`
         const dados = {
             data: new Date(data1),
             valor: Number(valor.replace(',','.')),
@@ -38,13 +38,15 @@ const FormMovimento = (props: FormMovimentoProps) => {
         await addDoc(collection(db, "movimentacao"), dados)
         .then(() => {
             props.setForm(false)
-            alert('Tudo certo!!!')
+            alert('Lançamento realizado com sucesso!!!')
         })
         .catch(err => {
             props.setForm(false)
             alert('Erro ao salvar o lançamento')
         })
 
+        
+        
         
         
     }
@@ -55,14 +57,14 @@ const FormMovimento = (props: FormMovimentoProps) => {
 
                 <FormControl mr="1">
                     <FormLabel htmlFor='date'>Data: </FormLabel>
-                    <Input id='date' type='date'
+                    <Input id='date' type='date' required
                         value={data}
                         onChange={e => setData(e.target.value)} />
                 </FormControl>
 
                 <FormControl ml="1">
                     <FormLabel htmlFor='number'>Valor: </FormLabel>
-                    <Input id='number' type='number'
+                    <Input id='number' type='number' required
                         value={valor}
                         onChange={e => setValor(e.target.value)} />
                 </FormControl>
@@ -72,7 +74,7 @@ const FormMovimento = (props: FormMovimentoProps) => {
             <Box>
                 <FormControl>
                     <FormLabel htmlFor='text'>Descrição: </FormLabel>
-                    <Input id='text' type='text'
+                    <Input id='text' type='text' required
                         value={descricao}
                         onChange={e => setDescricao(e.target.value)} />
                 </FormControl>
@@ -80,7 +82,7 @@ const FormMovimento = (props: FormMovimentoProps) => {
             <Flex my="2">
                 <FormControl mr="1">
                     <FormLabel>Espécie/Banco</FormLabel>
-                    <Select placeholder='Selecione...'
+                    <Select placeholder='Selecione...' required
                         value={modo}
                         onChange={e => setModo(e.target.value)}>
                         <option value='especie'>Em espécie</option>
@@ -89,7 +91,7 @@ const FormMovimento = (props: FormMovimentoProps) => {
                 </FormControl>
                 <FormControl ml="1">
                     <FormLabel>Receita/Despesa</FormLabel>
-                    <Select placeholder='Selecione...'
+                    <Select placeholder='Selecione...' required
                         value={tipo}
                         onChange={e => setTipo(e.target.value)}>
                         <option value='receita'>Receita</option>

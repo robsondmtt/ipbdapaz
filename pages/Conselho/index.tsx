@@ -6,7 +6,11 @@ const Conselho = () => {
         <div>
             <Navbar />
             <LayoutContent>
-                Conselho
+                # decisoes 
+                # atas 
+                # pautas 
+                # metas 2022 
+
             </LayoutContent>
         </div>
     )

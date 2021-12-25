@@ -11,7 +11,7 @@ import Cookies from 'js-cookie'
 export const AuthContext = createContext({
     user: null,
     currentUser: null,
-    permissao: 'convidado'
+    permissao: null
 
 });
 
@@ -28,8 +28,7 @@ function gerenciarCookie(logado) {
 export function AuthProvider(props) {
     const [user, setUser] = useState(null)
     const [carregando, setCarregando] = useState(true)
-    // const [permissao, setPermissao] = useState('convidado')
-    const [permissao, setPermissao] = useState('convidado')
+    const [permissao, setPermissao] = useState(null)
 
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -101,10 +100,16 @@ export function AuthProvider(props) {
             user.getIdTokenResult().then(idTokenResult => {
                 if (idTokenResult.claims.admin) {
                     setPermissao('admin');
+                    console.log(idTokenResult.claims.admin);
                 }
-
-                if(idTokenResult.claims.conselho){
+                
+                else if(idTokenResult.claims.conselho){
                     setPermissao('conselho');
+                    console.log(idTokenResult.claims.admin);
+                }
+                else{
+                    setPermissao('convidado');
+                    console.log(idTokenResult.claims.admin);
                 }
 
             })
@@ -123,9 +128,13 @@ export function AuthProvider(props) {
                         setPermissao('admin')
                         console.log(permissao)
                     }
-                    if(idTokenResult.claims.conselho){
+                    else if(idTokenResult.claims.conselho){
                         setPermissao('conselho')
                         console.log(permissao)
+                    }else{
+                        setPermissao('convidado')
+                        console.log(permissao)
+
                     }
                 })
             }

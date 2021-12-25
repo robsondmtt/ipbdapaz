@@ -5,6 +5,7 @@ interface MenuInicialProps {
   link: string
   name: string
   icone?: any
+  permissao?: boolean
 }
 
 const MenuInicial = (props: MenuInicialProps) => {

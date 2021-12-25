@@ -23,21 +23,27 @@ const Perfil = () => {
     const user = auth.currentUser
     console.log(user.email);
 
+    const [carregando, setCarregando] = useState(false)
     const toggleAdministrador = (nivel, email, uid) => {
+        setCarregando(true)
         if (nivel === 'adm') {
             eliminarAdministrador({ email: email, uid: uid })
+            setCarregando(false)
         } else {
             criarAdministrador({ email: email, uid: uid })
+            setCarregando(false)
         }
 
     }
     const toggleConselho = (nivel, email, uid) => {
+        setCarregando(true)
         if (nivel === 'conselho') {
             eliminarConselho({ email: email, uid: uid })
+            setCarregando(false)
         } else {
             criarConselho({ email: email, uid: uid })
+            setCarregando(false)
         }
-
     }
 
 
@@ -48,7 +54,6 @@ const Perfil = () => {
             <Navbar />
             <LayoutContent>
 
-                {/* {user && user.email} */}
                 {error && <strong>Error: {JSON.stringify(error)}</strong>}
                 {loading && <Loading />}
                 {user.email !== 'robson.dev9@gmail.com' && 'A página pode ser visualizada apenas pelo administrador do sistema'}
@@ -64,39 +69,46 @@ const Perfil = () => {
                                 <Box key={doc.id} bg="gray.100" borderRadius="lg" my="4" p="4">
                                     <Box justifyContent="space-between">
                                         <Center>
-                                           <strong> {doc.data().displayName}</strong>
+                                            <strong> {doc.data().displayName}</strong>
                                         </Center>
-                                        <Flex justifyContent="space-around" my="6">
-                                            <Text mb='0'>
-                                                Admin
-                                            </Text>
-                                            <Switch defaultChecked={
-                                                doc.data().nivelPermissao === 'adm' ? true : false
-                                            } id='email-alerts'
-                                                onChange={
-                                                    () => toggleAdministrador(
-                                                        doc.data().nivelPermissao, doc.data().email, doc.id
-                                                    )} />
-                                            <Text mb='0'>
-                                                Conselho
-                                            </Text>
-                                            <Switch defaultChecked={
-                                                doc.data().nivelPermissao === 'conselho' ? true : false
-                                            } id='email-alerts'
-                                                onChange={
-                                                    () => toggleConselho(
-                                                        doc.data().nivelPermissao, doc.data().email, doc.id
-                                                    )} />
-                                            <Text mb='0'>
-                                                Convidado
-                                            </Text>
-                                            <Switch defaultChecked={
-                                                doc.data().nivelPermissao === 'convidado' ? true : false
-                                            } id='email-alerts' isDisabled colorScheme="blue"
-                                            />
+
+                                        <Box justifyContent="space-around" my="6">
+                                            <Flex justifyContent="space-between">
+                                                <Text>
+                                                    Admin
+                                                </Text>
+                                                <Switch defaultChecked={
+                                                    doc.data().nivelPermissao === 'adm' ? true : false
+                                                } id='email-alerts'
+                                                    onChange={
+                                                        () => toggleAdministrador(
+                                                            doc.data().nivelPermissao, doc.data().email, doc.id
+                                                        )} />
+                                            </Flex>
+                                            <Flex justifyContent="space-between">
+                                                <Text>
+                                                    Conselho
+                                                </Text>
+                                                <Switch defaultChecked={
+                                                    doc.data().nivelPermissao === 'conselho' ? true : false
+                                                } id='email-alerts'
+                                                    onChange={
+                                                        () => toggleConselho(
+                                                            doc.data().nivelPermissao, doc.data().email, doc.id
+                                                        )} />
+                                            </Flex>
+                                            <Flex justifyContent="space-between">
+                                                <Text>
+                                                    Convidado
+                                                </Text>
+                                                <Switch defaultChecked={
+                                                    doc.data().nivelPermissao === 'convidado' ? true : false
+                                                } id='email-alerts' isDisabled colorScheme="blue"
+                                                />
+                                            </Flex>
 
 
-                                        </Flex>
+                                        </Box>
                                     </Box>
 
 

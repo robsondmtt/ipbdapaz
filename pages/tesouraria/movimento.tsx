@@ -1,18 +1,18 @@
-import { Badge, Box, Center, Flex, Heading, Image, Spacer, Text } from "@chakra-ui/react"
+import { Badge, Box, Center, Flex,  Spacer, Text } from "@chakra-ui/react"
 import moment from "moment"
-import Navbar from "../../components/Nav/Navbar"
 
 interface MovimentoProps {
     dados: any
 }
 const Movimento = (props: MovimentoProps) => {
 
-
+const contador = 1
     return (
         <>
 
             {
-                props.dados && props.dados.map(item => (
+                props.dados && props.dados.map((item,k) => (
+                    
                     <Box bg={item.tipo === 'receita' ? 'green.100' : 'red.100'} p="2" key={item.id} borderRadius="lg" my="4">
                         <Flex>
                             <Badge variant='solid' colorScheme={item.tipo === 'receita' ? 'green' : 'red'}>
@@ -26,7 +26,7 @@ const Movimento = (props: MovimentoProps) => {
 
                         </Flex>
                         <Center>
-                            <Text fontSize={[18,20,22]}>{item.descricao}</Text>
+                            <Text fontSize={[18,20,22]}>{k+1}. {item.descricao}</Text>
                         </Center>
                         <Center>
                             <Text fontSize={[14,16,18]}>{item.observacao}</Text>
@@ -38,6 +38,7 @@ const Movimento = (props: MovimentoProps) => {
                                 </strong>
                             </Text>
                         </Center>
+                        
                     </Box>
                 ))
             }

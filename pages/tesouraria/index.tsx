@@ -56,20 +56,28 @@ const Tesouraria = () => {
                         receita={dados.filter(d => d.tipo === 'receita')}
                         despesa={dados.filter(d => d.tipo === 'despesa')} />
 
-                    {
-                        currentUser && currentUser.uid  === '0F9Bqa5bDqSHNRmgrMy9Xn9JVT23' && (
-                            <Box align="right" >
-                                <Button
-                                    colorScheme="green"
-                                    m="2"
-                                    size="sm"
-                                    onClick={() => setForm(!form)}>
-                                    {form ? 'Listar Lançamentos' : 'Novo Lançamento'}
-                                </Button>
+                    <Flex justifyContent="space-between">
+                        <Box width="50%">
+                            <Button
+                            m="2"
+                            size="sm">filtro</Button>
+                        </Box>
+                        {
+                            currentUser && currentUser.uid === '0F9Bqa5bDqSHNRmgrMy9Xn9JVT23' && (
+                                <Box align="right" width="50%">
+                                    <Button
+                                        colorScheme="green"
+                                        m="2"
+                                        size="sm"
+                                        onClick={() => setForm(!form)}>
+                                        {form ? 'Listar Lançamentos' : 'Novo Lançamento'}
+                                    </Button>
 
-                            </Box>
-                        )
-                    }
+                                </Box>
+                            )
+                        }
+                    </Flex>
+
 
 
 
