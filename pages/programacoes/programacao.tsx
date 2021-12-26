@@ -27,10 +27,10 @@ const Programacao = ({ dados }) => {
                         </Box>
                         <Box bg="white">
                             <Flex justifyContent="space-between" py="2">
-                                <Badge bg="orange" p="4" w="30%">
+                                <Badge color="gray" bg="orange" p="4" w="30%">
                                     {moment(item.data.toDate()).format('dddd')}
                                 </Badge>
-                                <Badge p="4" w="70%">
+                                <Badge color="gray" p="4" w="70%">
                                     {moment(item.data.toDate()).format('LL')} -
                                     {item.hora}
                                 </Badge>

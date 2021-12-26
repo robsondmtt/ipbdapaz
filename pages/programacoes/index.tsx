@@ -35,7 +35,7 @@ const Programacoes = () => {
             <Navbar />
             <LayoutContent>
                 <Center mb="4">
-                    <Text fontSize="2xl"> 
+                    <Text fontSize="2xl" color="gray"> 
                         <strong>Programações</strong>
                     </Text>
                 </Center>
