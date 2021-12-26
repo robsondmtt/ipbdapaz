@@ -6,7 +6,7 @@ interface ProgramacaoProps {
     dados: any
 }
 
-export const Programacao = ({ dados }) => {
+const Programacao = ({ dados }) => {
 
     return (
         <>
@@ -53,3 +53,5 @@ export const Programacao = ({ dados }) => {
         </>
     )
 }
+
+export default Programacao
