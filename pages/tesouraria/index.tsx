@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Flex, Heading, Text } from "@chakra-ui/react"
+import { Box, Button, ButtonGroup, Flex, Heading, Image, Text } from "@chakra-ui/react"
 import LayoutContent from "../../components/Layout/LayoutContent"
 import Navbar from "../../components/Nav/Navbar"
 import { useEffect, useState } from "react"
@@ -90,11 +90,17 @@ const Tesouraria = () => {
                         despesa={dados.filter(d => d.tipo === 'despesa')} />
 
                     <Flex justifyContent="space-between">
-                        <ButtonGroup size='sm' isAttached >
+                        <ButtonGroup size='sm' isAttached mt="2" >
                             <Button 
                                 colorScheme={filtro === 'todos' ? 'orange' : 'gray'}
                                 onClick={() => setFiltro('todos')}
-                                 mr='-px'>Todos</Button>
+                                 mr='-px'
+                                //  leftIcon={
+                                //      <Image alt={"todos"} scr={"./icones/tudo.png"} width="24" />
+                                //  }
+                                 >
+                                    Todos 
+                                 </Button>
                             <Button
                                 colorScheme={filtro === 'receita' ? 'green' : 'gray'}
                                 onClick={() => setFiltro('receita')}
