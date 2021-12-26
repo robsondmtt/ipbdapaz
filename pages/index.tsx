@@ -34,7 +34,7 @@ export default function Home() {
         <SimpleGrid my={8} columns={[ 2, 3]} spacing='20px'>
           {currentUser.email === 'robson.dev9@gmail.com' && <MenuInicial link="/perfil" icone="/icones/perfil.png" name="Perfil" />}
           <MenuInicial link="/programacoes" icone="/icones/agenda.png" name="Programações" />
-          <MenuInicial link="/conselho" icone="/icones/encontro.png" name="Conselho" />
+          <MenuInicial link="/Conselho" icone="/icones/encontro.png" name="Conselho" />
           <MenuInicial link="/sermoes" icone="/icones/sermao.png" name="Sermões" />
           <MenuInicial link="/boletim" icone="/icones/boletim.png" name="Boletim" />
           <MenuInicial link="/aconselhamentos" icone="/icones/visita.png" name="Aconselhamentos" />
