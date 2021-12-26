@@ -40,7 +40,7 @@ export default function Home() {
           <MenuInicial link="/aconselhamentos" icone="/icones/visita.png" name="Aconselhamentos" />
           <MenuInicial link="/pedidos-oracao" icone="/icones/oracao.png" name="Pedidos de Oração" />
           <MenuInicial link="/tesouraria" icone="/icones/bau.png" name="Tesouraria" /> 
-        </SimpleGrid>
+        </SimpleGrid>   
       </Container>
       {/* </LayoutCenter> */}
     </>
