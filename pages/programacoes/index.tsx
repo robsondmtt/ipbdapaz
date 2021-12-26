@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import LayoutContent from "../../components/Layout/LayoutContent"
 import Navbar from "../../components/Nav/Navbar"
 import { db } from "../../lib/firebase"
-import { Programacao } from "./programacao"
+import  Programacao  from "./programacao"
 
 const Programacoes = () => {
 
