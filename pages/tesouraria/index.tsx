@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react"
+import { Box, Button, ButtonGroup, Flex, Heading, Text } from "@chakra-ui/react"
 import LayoutContent from "../../components/Layout/LayoutContent"
 import Navbar from "../../components/Nav/Navbar"
 import { useEffect, useState } from "react"
@@ -16,14 +16,18 @@ const Tesouraria = () => {
 
     const [hoje, setHoje] = useState(moment())
     const [dados, setDados] = useState([])
+    const [receitas, setReceitas] = useState([])
+    const [despesas, setDespesas] = useState([])
     const [form, setForm] = useState(false)
+    const [filtro, setFiltro] = useState('todos')
+
 
     const [loading, setLoading] = useState(false)
 
 
     const { permissao, currentUser } = useAuth()
 
-
+    
     useEffect(() => {
         function getMovimentos() {
             setLoading(true)
@@ -36,7 +40,36 @@ const Tesouraria = () => {
                 setLoading(false)
             })
         }
-        getMovimentos()
+
+        function getMovimentosReceitas() {
+            setLoading(true)
+            onSnapshot(query(collection(db, 'movimentacao'),
+                where('mes', '==', Number(moment(hoje).format('MM'))),
+                where('ano', '==', Number(moment(hoje).format('YYYY'))),
+                where('tipo', '==', 'receita'),
+                orderBy('data', 'desc')
+            ), snapshot => {
+                setDados(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+                setLoading(false)
+            })
+        }
+
+        function getMovimentosDespesas() {
+            setLoading(true)
+            onSnapshot(query(collection(db, 'movimentacao'),
+                where('mes', '==', Number(moment(hoje).format('MM'))),
+                where('ano', '==', Number(moment(hoje).format('YYYY'))),
+                where('tipo', '==', 'despesa'),
+                orderBy('data', 'desc')
+            ), snapshot => {
+                setDados(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+                setLoading(false)
+            })
+        }
+
+       
+            getMovimentos()
+       
     }, [hoje])
 
 
@@ -57,10 +90,21 @@ const Tesouraria = () => {
                         despesa={dados.filter(d => d.tipo === 'despesa')} />
 
                     <Flex justifyContent="space-between">
-                        <Box width="50%">
+                        <ButtonGroup size='sm' isAttached >
+                            <Button 
+                                colorScheme={filtro === 'todos' ? 'orange' : 'gray'}
+                                onClick={() => setFiltro('todos')}
+                                 mr='-px'>Todos</Button>
                             <Button
-                            m="2"
-                            size="sm">filtro</Button>
+                                colorScheme={filtro === 'receita' ? 'green' : 'gray'}
+                                onClick={() => setFiltro('receita')}
+                                 mr='-px'>Receitas</Button>
+                            <Button 
+                                colorScheme={filtro === 'despesa' ? 'red' : 'gray'}
+                                onClick={() => setFiltro('despesa')}
+                                >Despesas</Button>
+                        </ButtonGroup>
+                        <Box width="50%">
                         </Box>
                         {
                             currentUser && currentUser.uid === '0F9Bqa5bDqSHNRmgrMy9Xn9JVT23' && (
@@ -82,7 +126,13 @@ const Tesouraria = () => {
 
 
 
-                    {form ? <FormMovimento setForm={setForm} /> : <Movimento dados={dados} />}
+                    {
+                        form ? <FormMovimento setForm={setForm} /> 
+                        : <Movimento 
+                        dados={
+                            filtro === 'todos' ? dados : filtro === 'receita' ? 
+                            dados.filter(d => d.tipo === 'receita') : dados.filter(d => d.tipo === 'despesa')
+                            } />}
 
 
                 </>
