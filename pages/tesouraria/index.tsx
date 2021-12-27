@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Flex, Heading, Image, Text } from "@chakra-ui/react"
+import { Box, Button, ButtonGroup, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react"
 import LayoutContent from "../../components/Layout/LayoutContent"
 import Navbar from "../../components/Nav/Navbar"
 import { useEffect, useState } from "react"
@@ -11,6 +11,7 @@ import Navegacao from "./navegacao"
 import Painel from "./painel"
 import FormMovimento from "./formMovimento"
 import useAuth from "../../hooks/useAuth"
+import { FaArrowDown, FaArrowUp, FaBorderAll, FaFunnelDollar, FaSearchDollar } from "react-icons/fa"
 
 const Tesouraria = () => {
 
@@ -95,20 +96,23 @@ const Tesouraria = () => {
                                 colorScheme={filtro === 'todos' ? 'orange' : 'gray'}
                                 onClick={() => setFiltro('todos')}
                                  mr='-px'
-                                //  leftIcon={
-                                //      <Image alt={"todos"} scr={"./icones/tudo.png"} width="24" />
-                                //  }
                                  >
-                                    Todos 
+                                     <Icon as={FaBorderAll} />
                                  </Button>
                             <Button
                                 colorScheme={filtro === 'receita' ? 'green' : 'gray'}
                                 onClick={() => setFiltro('receita')}
-                                 mr='-px'>Receitas</Button>
+                                 mr='-px'>
+                                     <Icon as={FaSearchDollar} />
+                                     <Icon as={FaArrowUp} />
+                                     
+                                 </Button>
                             <Button 
                                 colorScheme={filtro === 'despesa' ? 'red' : 'gray'}
-                                onClick={() => setFiltro('despesa')}
-                                >Despesas</Button>
+                                onClick={() => setFiltro('despesa')}>
+                                     <Icon as={FaSearchDollar} />
+                                     <Icon as={FaArrowDown} />
+                                </Button>
                         </ButtonGroup>
                         <Box width="50%">
                         </Box>
